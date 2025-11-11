@@ -1,12 +1,9 @@
 🔥 **Équipe de choc en action !**
 
-Annie, Karima, Orsula, Yuliia, Faouzia et Gaëlle unissent leurs talents pour vous présenter un projet plein de coeur, d’humour et de réalité 💪💖
+Annie, Karima, Orsula, Yuliia, Faouzia et Gaëlle unissent leurs talents pour vous présenter un projet plein de cœur, d’humour et de réalité 💪💖
 Sous le signe de la solidarité et de la créativité, elles ont imaginé une expérience unique où la vie d’une maman solo devient un jeu à la fois drôle, touchant et instructif.
 
-Préparez-vous à entrer dans l’univers de MamanSolo — une aventure où chaque décision compte, où le rire se mêle à la réflexion, et où chaque clic raconte une histoire ! 
-
-🎬
-
+Préparez-vous à entrer dans l’univers de MamanSolo — une aventure où chaque décision compte, où le rire se mêle à la réflexion, et où chaque clic raconte une histoire ! 🎬🌸
 ---
 
 🌸 **Présentation du projet**

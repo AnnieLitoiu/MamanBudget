@@ -23,7 +23,8 @@ class Situation
     private ?string $logement = null;
 
     #[ORM\OneToOne(inversedBy: 'situation', cascade: ['persist', 'remove'])]
-    private ?Utilisateur $Utilisateur = null;
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Utilisateur $utilisateur = null;
 
     public function getId(): ?int
     {
@@ -38,7 +39,6 @@ class Situation
     public function setNbEnfants(int $nbEnfants): static
     {
         $this->nbEnfants = $nbEnfants;
-
         return $this;
     }
 
@@ -50,7 +50,6 @@ class Situation
     public function setRevenuMensuel(int $revenuMensuel): static
     {
         $this->revenuMensuel = $revenuMensuel;
-
         return $this;
     }
 
@@ -62,19 +61,17 @@ class Situation
     public function setLogement(string $logement): static
     {
         $this->logement = $logement;
-
         return $this;
     }
 
     public function getUtilisateur(): ?Utilisateur
     {
-        return $this->Utilisateur;
+        return $this->utilisateur;
     }
 
-    public function setUtilisateur(?Utilisateur $Utilisateur): static
+    public function setUtilisateur(?Utilisateur $utilisateur): static
     {
-        $this->Utilisateur = $Utilisateur;
-
+        $this->utilisateur = $utilisateur;
         return $this;
     }
 }

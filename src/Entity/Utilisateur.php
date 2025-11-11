@@ -5,9 +5,10 @@ namespace App\Entity;
 use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
-class Utilisateur implements PasswordAuthenticatedUserInterface
+class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -17,13 +18,13 @@ class Utilisateur implements PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
     private ?string $motDePasse = null;
 
-    #[ORM\OneToOne(mappedBy: 'Utilisateur', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(mappedBy: 'utilisateur', cascade: ['persist', 'remove'])]
     private ?Situation $situation = null;
 
     #[ORM\OneToOne(mappedBy: 'utilisateur', cascade: ['persist', 'remove'])]
@@ -42,7 +43,6 @@ class Utilisateur implements PasswordAuthenticatedUserInterface
     public function setNom(string $nom): static
     {
         $this->nom = $nom;
-
         return $this;
     }
 
@@ -54,7 +54,6 @@ class Utilisateur implements PasswordAuthenticatedUserInterface
     public function setEmail(string $email): static
     {
         $this->email = $email;
-
         return $this;
     }
 
@@ -66,7 +65,6 @@ class Utilisateur implements PasswordAuthenticatedUserInterface
     public function setMotDePasse(string $motDePasse): static
     {
         $this->motDePasse = $motDePasse;
-
         return $this;
     }
 
@@ -77,18 +75,15 @@ class Utilisateur implements PasswordAuthenticatedUserInterface
 
     public function setSituation(?Situation $situation): static
     {
-        // unset the owning side of the relation if necessary
         if ($situation === null && $this->situation !== null) {
             $this->situation->setUtilisateur(null);
         }
 
-        // set the owning side of the relation if necessary
         if ($situation !== null && $situation->getUtilisateur() !== $this) {
             $situation->setUtilisateur($this);
         }
 
         $this->situation = $situation;
-
         return $this;
     }
 
@@ -99,24 +94,37 @@ class Utilisateur implements PasswordAuthenticatedUserInterface
 
     public function setAvatar(?Avatar $avatar): static
     {
-        // unset the owning side of the relation if necessary
         if ($avatar === null && $this->avatar !== null) {
             $this->avatar->setUtilisateur(null);
         }
 
-        // set the owning side of the relation if necessary
         if ($avatar !== null && $avatar->getUtilisateur() !== $this) {
             $avatar->setUtilisateur($this);
         }
 
         $this->avatar = $avatar;
-
         return $this;
     }
 
+    /* ===================== SECURITY ===================== */
+
     public function getPassword(): ?string
     {
-        // on retourne le champ qui contient déjà le mot de passe hashé
         return $this->motDePasse;
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return $this->email ?? '';
+    }
+
+    public function getRoles(): array
+    {
+        return ['ROLE_USER'];
+    }
+
+    public function eraseCredentials(): void
+    {
+        // si tu avais un plainPassword temporaire tu l’effacerais ici
     }
 }
