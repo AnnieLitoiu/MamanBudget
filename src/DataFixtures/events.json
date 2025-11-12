@@ -87,6 +87,11 @@
             ]
           }
       ],
+    "evenementAleatoire": {
+        "text": "Tu as gagné une prime !",
+        "impact": { "budget": 100 },
+        "type": "bonus"
+      },
       "bilan": {
         "resume": {
           "budget": "Tu as dû faire plusieurs dépenses, mais tu as gardé le contrôle.",
@@ -178,6 +183,11 @@
             ]
           }
       ],
+    "evenementAleatoire": {
+        "text": "Tu as gagné au loto !",
+        "impact": { "budget": 50 },
+        "type": "bonus"
+      },
       "bilan": {
         "resume": {
           "budget": "Quelques imprévus comme les factures et réparations ont pesé.",
@@ -269,6 +279,11 @@
             ]
           }
       ],
+    "evenementAleatoire": {
+        "text": "Tu as reçu un cadeau de ta grand-mère.",
+        "impact": { "budget": 80 },
+        "type": "bonus"
+      },
       "bilan": {
         "resume": {
           "budget": "Les dépenses ont été modérées cette semaine.",
@@ -361,6 +376,11 @@
             ]
           }
       ],
+    "evenementAleatoire": {
+        "text": "Ton frigo est tombé en panne.",
+        "impact": { "budget": -80 },
+        "type": "bonus"
+      },
       "bilan": {
         "resume": {
           "budget": "Fin de mois difficile mais bien gérée.",
@@ -411,6 +431,6 @@
         }
       }
     }
-  }  
+  }
 }
 
