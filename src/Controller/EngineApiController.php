@@ -127,7 +127,7 @@ class EngineApiController extends AbstractController
             'id'=>$o->getId(),'label'=>$o->getLibelle(),
             'delta'=>['budget'=>(string)$o->getDeltaBudget(),'bien_etre'=>$o->getDeltaBienEtre(),'bonheur'=>$o->getDeltaBonheur()],
         ]; }
-        return ['id'=>$e->getId(),'titre'=>$e->getTitre(),'description'=>$e->getDescription(),
+        return ['id'=>$e->getId(),'texte'=>$e->getTexte(),
                 'type'=>$e->getType(),'semaine'=>$e->getSemaineApplicable(),
                 'categorie'=>$e->getConsequenceType(),'options'=>$opts];
     }
