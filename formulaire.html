@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil-MamanSolo</title>
+    <link rel="stylesheet" href="./globale.css">
+    <script defer src="./main.js"></script>
+    <!--font awsome cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
+</head>
+
+<body>
+        <header class="header-nav">
+            <h6>Maman Solo</h6>
+            <nav>
+                <ul>
+                    <li><a href="accueilMamanSolo.html">Accueil</a></li>
+                    <li><a href="connexion.html">Se connecter</a></li>
+                    <li><a href="profil.html">Profil</a></li>
+                    <li><a href="scores.html">Scores</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <div class="card">
+            <form action="">
+                <h2>Formulaire d'inscription</h2>
+                <label for="name">Nom :</label>
+                <input type="text" id="name" placeholder="Enterz votre nom" required>
+
+                <label for="firstname">Prénom :</label>
+                <input type="text" id="firstname" placeholder="Enterz votre Prénom" required>
+
+                <label for="email">E-mail :</label>
+                <input type="email" id="email" placeholder="Entrez votre e-mail " required>
+                <p>Choisissez votre avatar :</p>
+
+                <div id="avatar-gallery">
+                    <img src="./images-avatar/maman_blonde_normal.png" alt="Avatar Brun 1" class="avatar-thumbnail" onclick="changerAvatar('brun_1')">
+                    <img src="./images-avatar/maman_brune_normal.png" alt="Avatar Brun 2" class="avatar-thumbnail" onclick="changerAvatar('brun_2')">
+                    <img src="./images-avatar/maman_rousse_lisse_normal.png" alt="Avatar Blond 1" class="avatar-thumbnail" onclick="changerAvatar('blond_1')">
+                    <img src="./images-avatar/maman_rousse_normal.png" alt="Avatar Blond 2" class="avatar-thumbnail" onclick="changerAvatar('blond_2')">
+                    <img src="./images-avatar/maman_boucle_normal.png" alt="Avatar avec foulard 1" class="avatar-thumbnail" onclick="changerAvatar('foulard_1')">
+                    <img src="./images-avatar/maman_voile_normal.png" alt="Avatar avec foulard 2" class="avatar-thumbnail" onclick="changerAvatar('foulard_2')">
+                    <img src="./images-avatar/maman_lisse_normal.png" alt="Avatar avec foulard 2" class="avatar-thumbnail" onclick="changerAvatar('foulard_2')">
+                    <img src="./images-avatar/maman_noir_bouclé_normal.png" alt="Avatar avec foulard 2" class="avatar-thumbnail" onclick="changerAvatar('foulard_2')">
+
+                </div>
+            
+
+               <p>Nombre d'enfants :</p>
+    <div class="options">
+        <label>
+            <input type="radio" name="nombre_enfants" value="1">Bébé
+            👩‍👦
+        </label>
+        <label>
+            <input type="radio" name="nombre_enfants" value="2">Adolescent
+            👩‍👧‍👦
+        </label>
+        <label>
+            <input type="radio" name="nombre_enfants" value="0">Bébé et adolescent
+            🏃
+        </label>
+    </div>
+
+    <p>Type de logement :</p>
+    <div class="options">
+        <label>
+            <input type="radio" name="type_logement" value="studio">
+            Studio
+        </label>
+        <label>
+            <input type="radio" name="type_logement" value="appartement">
+            Appartement
+        </label>
+        <label>
+            <input type="radio" name="type_logement" value="maison">
+            Maison
+        </label>
+    </div>
+
+    <p>Situation professionnelle :</p>
+    <div class="options">
+        <label>
+            <input type="radio" name="situation_professionnelle" value="CDI">
+            CDI
+        </label>
+        <label>
+            <input type="radio" name="situation_professionnelle" value="CDD">
+            CDD
+        </label>
+        <label>
+            <input type="radio" name="situation_professionnelle" value="Interim">
+            Interim
+        </label>
+        <label>
+            <input type="radio" name="situation_professionnelle" value="sans_emploi">
+            Sans emploi
+        </label>
+    </div>
+
+                <label for="password">Mot de passe :</label>
+                <input type="password" id="password" placeholder="Entrez votre mot de passe" required>
+
+
+
+                <button type="submit" class="btn-connecter">Créer un compte</button>
+
+
+
+
+
+
+
+
+            </form>
+        </div>
+
+        </main>
+
+        <footer>
+            <p>&copy; 2025 MamanSolo. Tous droits réservés.</p>
+            <div class="socials">
+                <a href="https://www.instagram.com/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://fr.linkedin.com/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="https://www.facebook.com/?locale=fr_FR"><i class="fa-brands fa-facebook"></i></a>
+            </div>
+        </footer>
+
+
+
+
+
+</body>
+
+</html>
