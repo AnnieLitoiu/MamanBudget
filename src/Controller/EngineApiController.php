@@ -53,17 +53,20 @@ class EngineApiController extends AbstractController
 
         $eventPayload = null;
         if ($p->getEtat()==='EN_COURS') {
-            $cat = $req->query->get('categorie'); // bebe|ado|deux|null
-            $criteria = ['semaineApplicable'=>$s->getNumero()];
-            if ($cat) $criteria['consequenceType'] = $cat;
-
-            $repo = $this->em->getRepository(Evenement::class);
-            $cands = $repo->findBy($criteria);
-            if ($cands) {
-                $e = $cands[array_rand($cands)];
-                if (!$s->getEvenementCourant()) { $s->setEvenementCourant($e); $this->em->flush(); }
-                $eventPayload = $this->event($e);
+            $e = $s->getEvenementCourant();
+            if (!$e) {
+                $cat = $req->query->get('categorie');
+                $criteria = ['semaineApplicable'=>$s->getNumero()];
+                if ($cat) $criteria['consequenceType'] = $cat;
+                $repo = $this->em->getRepository(Evenement::class);
+                $cands = $repo->findBy($criteria);
+                if ($cands) {
+                    $e = $cands[array_rand($cands)];
+                    $s->setEvenementCourant($e);
+                    $this->em->flush();
+                }
             }
+            if ($e) { $eventPayload = $this->event($e); }
         }
 
         return $this->json(['game'=>$this->partie($p),'week'=>$this->semaine($s),'event'=>$eventPayload]);
@@ -83,6 +86,10 @@ class EngineApiController extends AbstractController
         $d = json_decode($req->getContent(), true) ?? [];
         $opt = $this->em->getRepository(Option::class)->find($d['optionId'] ?? null);
         if (!$opt) return $this->json(['error'=>'option_not_found'], 404);
+        $evt = $s->getEvenementCourant();
+        if (!$evt || !$evt->getOptions()->contains($opt)) {
+            return $this->json(['error'=>'option_not_allowed_for_current_event'], 400);
+        }
 
         $this->engine->appliquerOption($p,$s,$opt);
         $this->engine->cloturerSemaine($p,$s);
