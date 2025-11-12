@@ -1,0 +1,342 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "description": "Événements pour le jeu MamanSolo",
+    "lastUpdated": "2025-11-12"
+  },
+
+  "weeks": {
+    "week1": {
+      "bebe": [
+          {
+            "text": "Ton bébé pleure beaucoup la nuit, tu es épuisée.",
+            "choices": [
+              { "text": "Se reposer quand il dort", "impact": { "bienEtre": 1 } },
+              { "text": "Rester éveillée pour tout faire", "impact": { "stress": 2 } },
+              { "text": "Demander de l’aide à une amie", "impact": { "bienEtre": 2, "budget": -10 } }
+            ]
+          },
+          {
+            "text": "Le frigo est presque vide, il faut faire les courses.",
+            "choices": [
+              { "text": "Faire un gros plein", "impact": { "budget": -80, "enfants": 2 } },
+              { "text": "Acheter juste l’essentiel", "impact": { "budget": -40 } },
+              { "text": "Reporter à demain", "impact": { "stress": 1 } }
+            ]
+          },
+          {
+            "text": "Une amie t’invite à prendre un café.",
+            "choices": [
+              { "text": "Accepter", "impact": { "budget": -10, "bienEtre": 2 } },
+              { "text": "Refuser pour économiser", "impact": { "bienEtre": -1 } },
+              { "text": "Inviter chez toi", "impact": { "budget": -5, "enfants": 1 } }
+            ]
+          }
+      ],
+
+      "ado": [
+          {
+            "text": "L’école demande un nouveau projet.",
+            "choices": [
+              { "text": "Acheter le matériel", "impact": { "budget": -20, "enfants": 2 } },
+              { "text": "Faire avec ce qu’on a", "impact": { "enfants": -1 } },
+              { "text": "Reporter un peu", "impact": { "stress": 1 } }
+            ]
+          },
+          {
+            "text": "Facture d’électricité à payer.",
+            "choices": [
+              { "text": "Payer tout de suite", "impact": { "budget": -60 } },
+              { "text": "Payer partiellement", "impact": { "budget": -30, "stress": 1 } },
+              { "text": "Reporter", "impact": { "stress": 2 } }
+            ]
+          },
+          {
+            "text": "Ton ado demande une pizza ce soir.",
+            "choices": [
+              { "text": "Commander une pizza", "impact": { "budget": -20, "enfants": 2 } },
+              { "text": "Cuisiner ensemble", "impact": { "bienEtre": 1, "enfants": 1 } },
+              { "text": "Refuser", "impact": { "enfants": -1 } }
+            ]
+          }
+      ],
+
+      "deux": [
+          {
+            "text": "Organisation du matin : tout le monde en retard.",
+            "choices": [
+              { "text": "Se lever plus tôt demain", "impact": { "bienEtre": -1 } },
+              { "text": "Laisser les enfants se débrouiller", "impact": { "stress": -1, "enfants": -1 } },
+              { "text": "Prendre un taxi", "impact": { "budget": -10, "stress": -2 } }
+            ]
+          },
+          {
+            "text": "Courses du mois à faire.",
+            "choices": [
+              { "text": "Acheter tout d’un coup", "impact": { "budget": -80, "enfants": 1 } },
+              { "text": "Acheter semaine par semaine", "impact": { "budget": -40 } },
+              { "text": "Repousser encore", "impact": { "stress": 1 } }
+            ]
+          },
+          {
+            "text": "Soirée calme à la maison.",
+            "choices": [
+              { "text": "Regarder un film ensemble", "impact": { "bienEtre": 2, "enfants": 2 } },
+              { "text": "Faire les devoirs", "impact": { "stress": 1, "enfants": 1 } },
+              { "text": "Se coucher tôt", "impact": { "bienEtre": 1 } }
+            ]
+          }
+      ]
+    },
+
+    "week2": {
+      "bebe": [
+          {
+            "text": "Visite chez le pédiatre pour le vaccin.",
+            "choices": [
+              { "text": "Aller au rendez-vous", "impact": { "budget": -25, "stress": 1 } },
+              { "text": "Reporter", "impact": { "sante": -1 } },
+              { "text": "Aller à pied", "impact": { "bienEtre": 1, "fatigue": 1 } }
+            ]
+          },
+          {
+            "text": "Petite panne de machine à laver.",
+            "choices": [
+              { "text": "Faire réparer", "impact": { "budget": -50, "stress": -1 } },
+              { "text": "Laver à la main", "impact": { "stress": 2 } },
+              { "text": "Aller chez une amie", "impact": { "budget": -10, "bienEtre": 1 } }
+            ]
+          },
+          {
+            "text": "Tu attrapes un rhume.",
+            "choices": [
+              { "text": "Acheter des médicaments", "impact": { "budget": -15, "bienEtre": 2 } },
+              { "text": "Se reposer", "impact": { "bienEtre": 1 } },
+              { "text": "Continuer à tout faire", "impact": { "bienEtre": -2 } }
+            ]
+          }
+      ],
+
+      "ado": [
+          {
+            "text": "Ton ado demande de l’argent de poche.",
+            "choices": [
+              { "text": "Donner 10 €", "impact": { "budget": -10, "enfants": 1 } },
+              { "text": "Négocier des tâches", "impact": { "stress": 1, "enfants": 1 } },
+              { "text": "Refuser", "impact": { "enfants": -2 } }
+            ]
+          },
+          {
+            "text": "L’ordinateur de ton ado ne marche plus.",
+            "choices": [
+              { "text": "Réparer", "impact": { "budget": -40 } },
+              { "text": "Acheter un nouveau", "impact": { "budget": -100, "enfants": 2 } },
+              { "text": "Reporter", "impact": { "enfants": -1 } }
+            ]
+          },
+          {
+            "text": "Tu ressens beaucoup de fatigue cette semaine.",
+            "choices": [
+              { "text": "Faire du yoga", "impact": { "bienEtre": 2, "budget": -5 } },
+              { "text": "Dormir plus", "impact": { "bienEtre": 1 } },
+              { "text": "Ignorer", "impact": { "stress": 1 } }
+            ]
+          }
+      ],
+
+      "deux": [
+          {
+            "text": "Différence d’attention entre les enfants.",
+            "choices": [
+              { "text": "Temps avec le bébé", "impact": { "enfants": -1, "bienEtre": 1 } },
+              { "text": "Temps avec l’ado", "impact": { "enfants": 2, "bienEtre": -1 } },
+              { "text": "Activité commune", "impact": { "enfants": 1, "bienEtre": -1 } }
+            ]
+          },
+          {
+            "text": "Facture de gaz en retard.",
+            "choices": [
+              { "text": "Payer maintenant", "impact": { "budget": -40 } },
+              { "text": "Reporter", "impact": { "stress": 2 } },
+              { "text": "Demander aide sociale", "impact": { "budget": 20, "bienEtre": 1 } }
+            ]
+          },
+          {
+            "text": "Une sortie familiale est proposée par l’école.",
+            "choices": [
+              { "text": "Participer", "impact": { "budget": -20, "enfants": 2 } },
+              { "text": "Chercher une place gratuite", "impact": { "enfants": 1 } },
+              { "text": "Ne pas y aller", "impact": { "enfants": -1 } }
+            ]
+          }
+      ]
+    },
+
+    "week3": {
+      "bebe": [
+          {
+            "text": "Ton bébé tombe malade légèrement.",
+            "choices": [
+              { "text": "Aller chez le médecin", "impact": { "budget": -30, "stress": 1 } },
+              { "text": "Soigner à la maison", "impact": { "stress": 2 } },
+              { "text": "Appeler une amie pour conseils", "impact": { "bienEtre": 1 } }
+            ]
+          },
+          {
+            "text": "Tu veux acheter un petit jouet pour ton bébé.",
+            "choices": [
+              { "text": "Acheter un neuf", "impact": { "budget": -15, "enfants": 1 } },
+              { "text": "Trouver d’occasion", "impact": { "budget": -5, "enfants": 1 } },
+              { "text": "Ne pas acheter", "impact": { "enfants": -1 } }
+            ]
+          },
+          {
+            "text": "Tu n’as pas dormi depuis deux nuits.",
+            "choices": [
+              { "text": "Demander à ta mère de garder le bébé", "impact": { "bienEtre": 2 } },
+              { "text": "Boire plus de café", "impact": { "sante": -1 } },
+              { "text": "Dormir pendant la sieste du bébé", "impact": { "bienEtre": 1 } }
+            ]
+          }
+      ],
+
+      "ado": [
+          {
+            "text": "Ton ado s’ennuie à la maison.",
+            "choices": [
+              { "text": "Proposer une activité", "impact": { "budget": -10, "enfants": 1 } },
+              { "text": "Laisser tranquille", "impact": { "enfants": -1 } },
+              { "text": "Sortir ensemble", "impact": { "budget": -15, "bienEtre": 2 } }
+            ]
+          },
+          {
+            "text": "Tu reçois une invitation à un entretien d’embauche.",
+            "choices": [
+              { "text": "Y aller", "impact": { "stress": 1, "bienEtre": 2 } },
+              { "text": "Refuser", "impact": { "stress": -1 } },
+              { "text": "Reporter", "impact": { "stress": 1 } }
+            ]
+          },
+          {
+            "text": "Petite dispute avec ton ado.",
+            "choices": [
+              { "text": "Discuter calmement", "impact": { "enfants": 1, "stress": -1 } },
+              { "text": "Crier un peu", "impact": { "enfants": -2, "stress": 1 } },
+              { "text": "Laisser passer", "impact": { "enfants": -1 } }
+            ]
+          }
+      ],
+
+      "deux": [
+          {
+            "text": "L’ado aide au ménage, le bébé rit.",
+            "choices": [
+              { "text": "Remercier l’ado", "impact": { "enfants": 2 } },
+              { "text": "Donner une récompense", "impact": { "budget": -10, "enfants": 2 } },
+              { "text": "Rien dire", "impact": { "enfants": -1 } }
+            ]
+          },
+          {
+            "text": "Ton lave-vaisselle tombe en panne.",
+            "choices": [
+              { "text": "Réparer", "impact": { "budget": -50 } },
+              { "text": "Laver à la main", "impact": { "stress": 1 } },
+              { "text": "Reporter la réparation", "impact": { "stress": 2 } }
+            ]
+          },
+          {
+            "text": "Une sortie au parc est prévue.",
+            "choices": [
+              { "text": "Y aller avec les deux", "impact": { "enfants": 2, "bienEtre": 1 } },
+              { "text": "Envoyer seulement l’ado", "impact": { "enfants": -1 } },
+              { "text": "Annuler", "impact": { "bienEtre": -1 } }
+            ]
+          }
+      ]
+    },
+
+    "week4": {
+      "bebe": [
+          {
+            "text": "Le bébé fait ses premiers pas !",
+            "choices": [
+              { "text": "Prendre une photo", "impact": { "bienEtre": 2 } },
+              { "text": "Acheter un jouet pour fêter", "impact": { "budget": -15, "enfants": 1 } },
+              { "text": "Partager sur les réseaux", "impact": { "bienEtre": 1 } }
+            ]
+          },
+          {
+            "text": "Tu veux sortir seule un moment.",
+            "choices": [
+              { "text": "Faire garder le bébé", "impact": { "budget": -20, "bienEtre": 2 } },
+              { "text": "Rester à la maison", "impact": { "bienEtre": -1 } },
+              { "text": "Sortir avec lui", "impact": { "bienEtre": 1 } }
+            ]
+          },
+          {
+            "text": "Fin du mois difficile.",
+            "choices": [
+              { "text": "Demander une aide", "impact": { "budget": 50, "stress": -1 } },
+              { "text": "Réduire les dépenses", "impact": { "stress": 1 } },
+              { "text": "Ignorer pour l’instant", "impact": { "stress": 2 } }
+            ]
+          }
+      ],
+
+      "ado": [
+          {
+            "text": "Ton ado réussit bien à l’école.",
+            "choices": [
+              { "text": "Offrir une petite récompense", "impact": { "budget": -10, "enfants": 2 } },
+              { "text": "Dire bravo simplement", "impact": { "enfants": 1 } },
+              { "text": "Ne rien dire", "impact": { "enfants": -1 } }
+            ]
+          },
+          {
+            "text": "Tu reçois un appel d’un ami.",
+            "choices": [
+              { "text": "Sortir boire un café", "impact": { "budget": -10, "bienEtre": 2 } },
+              { "text": "Rester à la maison", "impact": { "bienEtre": -1 } },
+              { "text": "Appeler plus tard", "impact": { "stress": 1 } }
+            ]
+          },
+          {
+            "text": "Tu penses à tes objectifs personnels.",
+            "choices": [
+              { "text": "Faire une liste de rêves", "impact": { "bienEtre": 2 } },
+              { "text": "Penser au futur travail", "impact": { "stress": 1 } },
+              { "text": "Ne pas y penser", "impact": { "bienEtre": -1 } }
+            ]
+          }
+      ],
+
+      "deux": [
+          {
+            "text": "Ton ado aide à garder le bébé.",
+            "choices": [
+              { "text": "Le remercier avec un petit cadeau", "impact": { "budget": -10, "enfants": 2 } },
+              { "text": "Le remercier simplement", "impact": { "enfants": 1 } },
+              { "text": "Ne rien dire", "impact": { "enfants": -1 } }
+            ]
+          },
+          {
+            "text": "La fin du mois approche.",
+            "choices": [
+              { "text": "Planifier le budget", "impact": { "stress": -1 } },
+              { "text": "Ignorer", "impact": { "stress": 2 } },
+              { "text": "Chercher un revenu complémentaire", "impact": { "stress": 1, "budget": 30 } }
+            ]
+          },
+          {
+            "text": "Week-end de repos ou activités ?",
+            "choices": [
+              { "text": "Repos total", "impact": { "bienEtre": 2 } },
+              { "text": "Sortie en famille", "impact": { "budget": -20, "enfants": 2 } },
+              { "text": "Travaux ménagers", "impact": { "stress": 1 } }
+            ]
+          }
+      ]
+    }
+  }  
+}
+

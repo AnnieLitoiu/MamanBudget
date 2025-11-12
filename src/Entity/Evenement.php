@@ -15,11 +15,19 @@ class Evenement
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private string $titre = '';
+    #[ORM\Column(type: 'text')]
+    private string $texte = '';
 
-    #[ORM\Column(type: 'text', nullable: true)]
-    private ?string $description = null;
+    //  (week1, week2, ...)
+    #[ORM\Column(length: 20)]
+    private string $semaine = 'week1';
+
+      // (bebe, ado, deux)
+    #[ORM\Column(length: 20)]
+    private string $scenario = 'bebe';
+
+    // #[ORM\Column(type: 'text', nullable: true)]
+    // private ?string $description = null;
 
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $consequenceType = null;
@@ -49,36 +57,36 @@ class Evenement
         return $this->id;
     }
 
-    public function getTitre(): string
+    public function getTexte(): string
     {
-        return $this->titre;
+        return $this->texte;
     }
 
-    public function setTitre(string $titre): static
+    public function setTexte(string $texte): static
     {
-        $this->titre = $titre;
+        $this->texte = $texte;
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function getSemaine(): ?string
     {
-        return $this->description;
+        return $this->semaine;
     }
 
-    public function setDescription(?string $description): static
+    public function setSemaine(?string $semaine): static
     {
-        $this->description = $description;
+        $this->semaine = $semaine;
         return $this;
     }
 
-    public function getConsequenceType(): ?string
+    public function getScenario(): ?string
     {
-        return $this->consequenceType;
+        return $this->scenario;
     }
 
-    public function setConsequenceType(?string $consequenceType): static
+    public function setScenario(?string $scenario): static
     {
-        $this->consequenceType = $consequenceType;
+        $this->scenario = $scenario;
         return $this;
     }
 
