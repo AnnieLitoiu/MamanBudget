@@ -1,12 +1,16 @@
+:root{
+    --bg: #ffe5e0;
+    --colorFuchia: #e6456f;
+}
 body {
     margin: 0;
     padding: 0;
     overflow: hidden;
     font-family: 'Arial', sans-serif;
-    background-color: #ffe5e0;
+    background-color: var(--bg);
   }
   h1{
-    color: #e6456f;
+    color: var(--colorFuchia);
     text-align: center;
     margin-bottom:0.5rem ;
     font-size: 3rem;
@@ -53,4 +57,74 @@ body {
     border-style: solid;
     border-color: white transparent transparent transparent;
   }
-  
+  .btn-accueil{
+    color: white;
+    background-color: var(--colorFuchia);
+    border: none;
+    border-radius: 1rem;
+    padding: 1rem 2rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: var(--bg) 0px 54px 55px, var(--bg) 0px -12px 30px, var(--colorFuchia) 0px 4px 6px, var(--colorFuchia) 0px 12px 13px, var(--colorFuchia) 0px -3px 5px;
+    &:hover{
+        background-color: var(--bg);
+        color: #e6456f;
+    
+    }
+  }
+
+  .connexion-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    position: absolute;
+    top: 50%;
+    right: 35%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.9); /* Transparence légère */
+    padding: 10rem 10rem;
+    border-radius: 1rem;
+    z-index: 3;               /* Tout devant */
+    box-shadow: 0 4px 10px var(--colorFuchia);
+  }
+  h2{
+    color: var(--colorFuchia);
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+
+  }
+  .connexion-form input{
+    padding: 0.4rem 3rem;
+    box-shadow:  var(--bg) 0px 54px 55px, var(--bg) 0px -12px 30px, var(--bg) 0px 4px 6px, #f8cdd9 0px 12px 13px, var(--bg) 0px -3px 5px; 
+    border: none;
+    margin-bottom: 1.5rem;
+  }
+  .btn-connection{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    justify-content: center;
+    margin: 4rem 0;
+  }
+.btn-connecter{
+   
+    color: white;
+    background-color: var(--colorFuchia);
+    border: none;
+    border-radius: 1rem;
+    padding: 0.8rem 2rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+
+    box-shadow: var(--bg) 0px 54px 55px, var(--bg) 0px -12px 30px, var(--colorFuchia) 0px 4px 6px, var(--colorFuchia) 0px 12px 13px, var(--colorFuchia) 0px -3px 5px;
+    &:hover{
+        background-color: var(--bg);
+        color: #e6456f;
+    }
+    
+}
