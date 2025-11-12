@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil-MamanSolo</title>
+    <link rel="stylesheet" href="./globale.css">
+    <script defer src="./main.js"></script>
+</head>
+
+<body>
+        <header class="header-nav">
+            <h6>Maman Solo</h6>
+            <nav>
+                <ul>
+                    <li><a href="accueilMamanSolo.html">Accueil</a></li>
+                    <li><a href="connexion.html">Se connecter</a></li>
+                    <li><a href="profil.html">Profil</a></li>
+                    <li><a href="scores.html">Scores</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <div class="card">
+            <form action="">
+                <h2>Formulaire d'inscription</h2>
+                <label for="name">Nom :</label>
+                <input type="text" id="name" placeholder="Enterz votre nom" required>
+
+                <label for="firstname">Prénom :</label>
+                <input type="text" id="firstname" placeholder="Enterz votre Prénom" required>
+
+                <label for="email">E-mail :</label>
+                <input type="email" id="email" placeholder="Entrez votre e-mail " required>
+
+                <label for="budget">Budget de départ :</label>
+                <input type="number" id="budget" placeholder="Enterz votre budget" required>
+
+               <p>Nombre d'enfants :</p>
+    <div class="options">
+        <label>
+            <input type="radio" name="nombre_enfants" value="1">
+            👩‍👦
+        </label>
+        <label>
+            <input type="radio" name="nombre_enfants" value="2">
+            👩‍👧‍👦
+        </label>
+        <label>
+            <input type="radio" name="nombre_enfants" value="0">
+            🏃
+        </label>
+    </div>
+
+    <p>Type de logement :</p>
+    <div class="options">
+        <label>
+            <input type="radio" name="type_logement" value="studio">
+            Studio
+        </label>
+        <label>
+            <input type="radio" name="type_logement" value="appartement">
+            Appartement
+        </label>
+        <label>
+            <input type="radio" name="type_logement" value="maison">
+            Maison
+        </label>
+    </div>
+
+    <p>Situation professionnelle :</p>
+    <div class="options">
+        <label>
+            <input type="radio" name="situation_professionnelle" value="CDI">
+            CDI
+        </label>
+        <label>
+            <input type="radio" name="situation_professionnelle" value="CDD">
+            CDD
+        </label>
+        <label>
+            <input type="radio" name="situation_professionnelle" value="Interim">
+            Interim
+        </label>
+        <label>
+            <input type="radio" name="situation_professionnelle" value="sans_emploi">
+            Sans emploi
+        </label>
+    </div>
+
+                <label for="password">Mot de passe :</label>
+                <input type="password" id="password" placeholder="Entrez votre mot de passe" required>
+
+
+
+                <button type="submit" class="btn-connecter">Créer un compte</button>
+
+
+
+
+
+
+
+
+            </form>
+        </div>
+
+        </main>
+
+
+
+
+
+</body>
+
+</html>
