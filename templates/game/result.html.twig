@@ -1,0 +1,32 @@
+{# afficher le résultat final quand Karima t’envoie les données. #}
+
+{% extends 'base.html.twig' %}
+{% block title %}Résultat de la partie{% endblock %}
+
+{% block body %}
+  <section class="container" style="max-width: 720px; margin: 2rem auto;">
+    <h1>Résultat de ta partie</h1>
+
+    <p class="text-muted">
+      Voici ton équilibre après 4 semaines de gestion de budget.
+    </p>
+
+    <ul class="list-group my-3">
+      <li class="list-group-item">
+        Budget final : <strong>{{ final.budget_final ?? '—' }}</strong> €
+      </li>
+      <li class="list-group-item">
+        Bien-être final : <strong>{{ final.bien_etre_final ?? '—' }}</strong>/100
+      </li>
+      <li class="list-group-item">
+        Bonheur final : <strong>{{ final.bonheur_final ?? '—' }}</strong>/100
+      </li>
+    </ul>
+
+    <div class="mt-3 d-flex gap-2">
+      <a href="{{ path('scores_index') }}" class="btn btn-secondary">Voir le classement</a>
+      <a href="{{ path('game_setup_family') }}" class="btn btn-primary">Rejouer</a>
+      <a href="{{ path('app_menu') }}" class="btn btn-link">Retour au menu</a>
+    </div>
+  </section>
+{% endblock %}

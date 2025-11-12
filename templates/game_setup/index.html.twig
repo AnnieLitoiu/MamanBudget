@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+{% block title %}Choix familial{% endblock %}
+
+{% block body %}
+  <section class="container" style="max-width: 720px; margin: 2rem auto;">
+    <h1>Choix de la situation familiale</h1>
+    <p class="text-muted">
+      Ce choix ajustera le budget de départ, le bien-être et le bonheur pour votre partie.
+    </p>
+
+    <style>
+      .form-check {
+        display: inline-flex;
+        align-items: center;
+        margin-right: 20px;
+      }
+      .form-check-input {
+        margin-right: 6px;
+      }
+      fieldset {
+        margin-bottom: 1.5rem;
+      }
+      legend {
+        font-weight: 600;
+        margin-bottom: .25rem;
+      }
+    </style>
+
+    {{ form_start(form) }}
+
+      {# Situation familiale #}
+      <fieldset>
+        <legend>{{ form_label(form.composition) }}</legend>
+        {{ form_widget(form.composition) }}
+      </fieldset>
+
+      {# Type de logement #}
+      <fieldset>
+        <legend>{{ form_label(form.logement) }}</legend>
+        {{ form_widget(form.logement) }}
+      </fieldset>
+
+      {# Situation professionnelle #}
+      <fieldset>
+        <legend>{{ form_label(form.situationPro) }}</legend>
+        {{ form_widget(form.situationPro) }}
+      </fieldset>
+
+      <button class="btn btn-primary mt-2">Valider et démarrer</button>
+
+    {{ form_end(form) }}
+
+    <div class="mt-3">
+      <a href="{{ path('app_menu') }}" class="btn btn-link">Retour au menu</a>
+    </div>
+  </section>
+{% endblock %}

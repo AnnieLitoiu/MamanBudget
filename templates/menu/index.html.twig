@@ -1,0 +1,21 @@
+{# templates/menu/index.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Menu | MamanSolo{% endblock %}
+
+{% block body %}
+
+<section class="container menu-principal">
+
+
+
+  <p class="menu-subtitle">Démarre une partie, consulte le classement ou ton profil.</p>
+
+ <div class="menu-actions">
+  <a class="btn btn-primary" href="{{ path('game_setup_family') }}">Démarrer le jeu</a>
+  <a class="btn btn-secondary" href="{{ path('scores_index') }}">Tableau des scores</a>
+  <a class="btn btn-dark" href="{{ path('profil_dashboard') }}">Mon profil</a>
+</div>
+
+</section>
+{% endblock %}

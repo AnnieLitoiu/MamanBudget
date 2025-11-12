@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+{% block title %}BudgetMaman — Jeu{% endblock %}
+
+{% block body %}
+  <section class="container" style="max-width: 960px; margin: 2rem auto;">
+    <h1>BudgetMaman — Partie en cours</h1>
+
+    <p class="text-muted">
+      Cette page est le conteneur du jeu. Le design et les interactions seront gérés
+      par le HTML/CSS/JS de Fouzia, en utilisant l’API de Karima.
+    </p>
+
+    {# On expose quelques infos utiles au JS de Fouzia #}
+    <div
+      id="game-root"
+      data-game-id="{{ partie.id }}"
+      data-composition="{{ composition }}"
+      data-logement="{{ logement }}"
+      data-situation-pro="{{ situationPro }}"
+    >
+      <!-- Fouzia intégrera ici son HTML/CSS (par exemple en JS) -->
+    </div>
+
+    <script>
+      // Variables globales JS que Fouzia peut utiliser
+      window.GAME_ID = {{ partie.id }};
+      window.GAME_USER_ID = {{ partie.utilisateur.id }};
+      window.GAME_INITIAL_BUDGET = "{{ partie.budgetCourant }}";
+      window.GAME_INITIAL_BONHEUR = {{ partie.bonheurCourant }};
+      window.GAME_NB_SEMAINES = {{ partie.nbSemaines ?? 4 }};
+    </script>
+
+    {# Ici, Fouzia pourra inclure son propre JS externe qui appellera l'API de Karima #}
+    {# <script src="/js/game-frontend.js"></script> #}
+  </section>
+{% endblock %}

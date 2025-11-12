@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+{% block title %}Mon profil{% endblock %}
+
+{% block body %}
+  <section class="container" style="max-width: 720px; margin: 2rem auto;">
+    <h1>Mon profil</h1>
+    <p class="text-muted">
+      Aperçu de tes statistiques de jeu. Plus tu joues, plus ces indicateurs se remplissent.
+    </p>
+
+    <div class="row g-3 my-3">
+      <div class="col-6 col-md-3">
+        <div class="card p-3 text-center">
+          <div class="h4 mb-0">{{ stats.games_played }}</div>
+          <div class="text-muted">Parties jouées</div>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-3">
+        <div class="card p-3 text-center">
+          <div class="h4 mb-0">{{ stats.best_bien_etre }}</div>
+          <div class="text-muted">Mon bien-être</div>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-3">
+        <div class="card p-3 text-center">
+          <div class="h4 mb-0">{{ stats.best_bonheur }}</div>
+          <div class="text-muted">Mon bonheur</div>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-3">
+        <div class="card p-3 text-center">
+          <div class="h4 mb-0">{{ stats.best_budget }} €</div>
+          <div class="text-muted">Meilleur budget</div>
+        </div>
+      </div>
+    </div>
+
+    <a href="{{ path('app_menu') }}" class="btn btn-link mt-3">Retour au menu</a>
+  </section>
+{% endblock %}
