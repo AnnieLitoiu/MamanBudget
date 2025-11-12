@@ -3,29 +3,12 @@
 {% block title %}Welcome | MamanSolo{% endblock %}
 
 {% block body %}
-  <div class="page-container" style="text-align:center;padding:2rem;">
-    <h1>Bienvenue dans MamanSolo 💕</h1>
+  <h1>Bienvenue dans MamanSolo 💕</h1>
 
-    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-  
-      <a
-        href="{{ path('inscription_profil', { id: app.user.id }) }}"
-        class="btn"
-        style="display:inline-block;margin-bottom:1rem;"
-      >🎮 Commencer le jeu
-      </a>
-      <br>
-      <a
-        href="{{ path('app_logout') }}"
-        class="btn"
-        style="background-color:#f8c9e2;color:#333;padding:8px 14px;border-radius:8px;text-decoration:none;"
-      >
-        Se déconnecter
-      </a>
-    {% else %}
-      <p> Yuliia va embellir cette page - Petit explicatif du jeu</p>
-      <br>
-      <a href="{{ path('app_login') }}" class="btn">Commencer</a>
-    {% endif %}
-  </div>
+  {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    <a href="{{ path('app_welcome') }}">Commencer le jeu</a><br>
+    <a href="{{ path('app_logout') }}">Se déconnecter</a>
+  {% else %}
+    <a href="{{ path('app_login') }}" class="btn">Commencer</a>
+  {% endif %}
 {% endblock %}

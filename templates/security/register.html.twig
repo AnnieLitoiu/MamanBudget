@@ -1,19 +1,12 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Register | MamanSolo{% endblock %}
 
 {% block body %}
-  <div class="page-container" style="max-width:600px;margin:2rem auto;">
-    <h1>Créer mon compte 💕</h1>
+  <h1>Créer mon compte 💕</h1>
 
-    <div style="background:#fff0fa;padding:2rem;border-radius:12px;">
-      {{ form_start(form) }}
-        {{ form_errors(form) }}
-        {{ form_widget(form) }}
-        <button class="btn" style="margin-top:1rem;background-color:#c026d3;color:white;border:none;padding:10px 20px;border-radius:8px;">
-          🎮 Commencer le jeu
-        </button>
-      {{ form_end(form) }}
-    </div>
-  </div>
+  {{ form_start(form) }}
+    {{ form_errors(form) }}
+    {{ form_widget(form) }}
+    <button type="submit">🎮 Commencer le jeu</button>
+  {{ form_end(form) }}
 {% endblock %}

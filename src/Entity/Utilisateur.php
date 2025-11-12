@@ -26,11 +26,6 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $motDePasse = null;
 
-    #[ORM\OneToOne(mappedBy: 'utilisateur', cascade: ['persist', 'remove'])]
-    private ?Situation $situation = null;
-
-    #[ORM\OneToOne(mappedBy: 'utilisateur', cascade: ['persist', 'remove'])]
-    private ?Avatar $avatar = null;
 
     #[ORM\OneToOne(mappedBy: 'utilisateur', cascade: ['persist', 'remove'])]
     private ?Profil $profil = null;
@@ -84,43 +79,6 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getSituation(): ?Situation
-    {
-        return $this->situation;
-    }
-
-    public function setSituation(?Situation $situation): static
-    {
-        if ($situation === null && $this->situation !== null) {
-            $this->situation->setUtilisateur(null);
-        }
-
-        if ($situation !== null && $situation->getUtilisateur() !== $this) {
-            $situation->setUtilisateur($this);
-        }
-
-        $this->situation = $situation;
-        return $this;
-    }
-
-    public function getAvatar(): ?Avatar
-    {
-        return $this->avatar;
-    }
-
-    public function setAvatar(?Avatar $avatar): static
-    {
-        if ($avatar === null && $this->avatar !== null) {
-            $this->avatar->setUtilisateur(null);
-        }
-
-        if ($avatar !== null && $avatar->getUtilisateur() !== $this) {
-            $avatar->setUtilisateur($this);
-        }
-
-        $this->avatar = $avatar;
-        return $this;
-    }
 
     public function getProfil(): ?Profil
     {

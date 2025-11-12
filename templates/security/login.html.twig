@@ -1,40 +1,24 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Login | MamanSolo{% endblock %}
 
 {% block body %}
-  <div class="page-container" style="max-width:400px;margin:2rem auto;">
-    <h1>Se connecter 💕</h1>
+  <h1>Se connecter 💕</h1>
 
-    {% if error %}
-      <div style="background-color:#ffd6d6;padding:10px;border-radius:8px;margin-bottom:1rem;">
-        {{ error.messageKey|trans(error.messageData, 'security') }}
-      </div>
-    {% endif %}
+  {% if error %}
+    <div class="error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+  {% endif %}
 
-    <form method="post">
-      <div style="margin-bottom:1rem;">
-        <label for="username">Email</label>
-        <input type="text" id="username" name="_username"
-               value="{{ last_username }}" required autofocus
-               style="width:100%;padding:8px;border-radius:6px;border:1px solid #ccc;">
-      </div>
+  <form method="post" action="{{ path('app_login') }}">
+    <label for="username">Email</label>
+    <input type="text" id="username" name="_username" value="{{ last_username }}" required autofocus>
 
-      <div style="margin-bottom:1rem;">
-        <label for="password">Mot de passe</label>
-        <input type="password" id="password" name="_password"
-               required style="width:100%;padding:8px;border-radius:6px;border:1px solid #ccc;">
-      </div>
+    <label for="password">Mot de passe</label>
+    <input type="password" id="password" name="_password" required>
 
-      <button class="btn" type="submit"
-              style="background-color:#c026d3;color:white;padding:10px 20px;border:none;border-radius:8px;">
-        Connexion
-      </button>
-    </form>
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-    <p style="margin-top:1rem;">
-      Pas de compte ?
-      <a href="{{ path('app_register') }}">Créer un compte</a>
-    </p>
-  </div>
+    <button class="btn" type="submit">Connexion</button>
+  </form>
+
+  <p>Pas de compte ? <a href="{{ path('app_register') }}">Créer un compte</a></p>
 {% endblock %}

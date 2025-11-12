@@ -14,7 +14,6 @@ class UtilisateurType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        // on mappe les 3 champs de ton entité
         $builder
             ->add('nom', TextType::class, [
                 'label' => 'Ton nom',
