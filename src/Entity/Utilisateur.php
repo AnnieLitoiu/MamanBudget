@@ -26,12 +26,8 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $motDePasse = null;
 
-
-    #[ORM\OneToOne(mappedBy: 'utilisateur', cascade: ['persist', 'remove'])]
-    private ?Profil $profil = null;
-
-    #[ORM\OneToOne(mappedBy: 'utilisateur', cascade: ['persist', 'remove'])]
-    private ?TableauDeBord $tableauDeBord = null;
+    #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Profil::class, cascade: ['persist', 'remove'])]
+    private Collection $profils;
 
     #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Partie::class, cascade: ['persist', 'remove'])]
     private Collection $parties;
@@ -39,6 +35,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->parties = new ArrayCollection();
+        $this->profils = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -79,45 +76,6 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-
-    public function getProfil(): ?Profil
-    {
-        return $this->profil;
-    }
-
-    public function setProfil(?Profil $profil): static
-    {
-        if ($profil === null && $this->profil !== null) {
-            $this->profil->setUtilisateur(null);
-        }
-
-        if ($profil !== null && $profil->getUtilisateur() !== $this) {
-            $profil->setUtilisateur($this);
-        }
-
-        $this->profil = $profil;
-        return $this;
-    }
-
-    public function getTableauDeBord(): ?TableauDeBord
-    {
-        return $this->tableauDeBord;
-    }
-
-    public function setTableauDeBord(?TableauDeBord $tableauDeBord): static
-    {
-        if ($tableauDeBord === null && $this->tableauDeBord !== null) {
-            $this->tableauDeBord->setUtilisateur(null);
-        }
-
-        if ($tableauDeBord !== null && $tableauDeBord->getUtilisateur() !== $this) {
-            $tableauDeBord->setUtilisateur($this);
-        }
-
-        $this->tableauDeBord = $tableauDeBord;
-        return $this;
-    }
-
     /** @return Collection<int, Partie> */
     public function getParties(): Collection
     {
@@ -143,6 +101,30 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /** @return Collection<int, Profil> */
+    public function getProfils(): Collection
+    {
+        return $this->profils;
+    }
+
+    public function addProfil(Profil $profil): static
+    {
+        if (!$this->profils->contains($profil)) {
+            $this->profils->add($profil);
+            $profil->setUtilisateur($this);
+        }
+        return $this;
+    }
+
+    public function removeProfil(Profil $profil): static
+    {
+        if ($this->profils->removeElement($profil)) {
+            if ($profil->getUtilisateur() === $this) {
+                $profil->setUtilisateur(null);
+            }
+        }
+        return $this;
+    }
     /* ===================== SECURITY ===================== */
 
     public function getPassword(): ?string

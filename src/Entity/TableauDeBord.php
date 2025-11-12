@@ -13,9 +13,9 @@ class TableauDeBord
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\OneToOne(inversedBy: 'tableauDeBord')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Utilisateur $utilisateur = null;
+    #[ORM\OneToOne(inversedBy: 'tableauDeBord', targetEntity: Profil::class)]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Profil $profil = null;
 
     #[ORM\Column(type: 'json', nullable: true)]
     private ?array $classement = null;
@@ -31,14 +31,14 @@ class TableauDeBord
         return $this->id;
     }
 
-    public function getUtilisateur(): ?Utilisateur
+    public function getProfil(): ?Profil
     {
-        return $this->utilisateur;
+        return $this->profil;
     }
 
-    public function setUtilisateur(Utilisateur $utilisateur): static
+    public function setProfil(?Profil $profil): static
     {
-        $this->utilisateur = $utilisateur;
+        $this->profil = $profil;
         return $this;
     }
 
