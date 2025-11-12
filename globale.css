@@ -86,7 +86,7 @@ body {
     right: 35%;
     transform: translateY(-50%);
     background-color: rgba(255, 255, 255, 0.9); /* Transparence légère */
-    padding: 10rem 10rem;
+    padding: 4rem 5rem;
     border-radius: 1rem;
     z-index: 3;               /* Tout devant */
     box-shadow: 0 4px 10px var(--colorFuchia);
@@ -99,9 +99,10 @@ body {
 
   }
   .connexion-form input{
-    padding: 0.4rem 3rem;
+    padding: 0.5rem 3rem;
     box-shadow:  var(--bg) 0px 54px 55px, var(--bg) 0px -12px 30px, var(--bg) 0px 4px 6px, #f8cdd9 0px 12px 13px, var(--bg) 0px -3px 5px; 
     border: none;
+    border-bottom: 2px solid var(--colorFuchia);
     margin-bottom: 1.5rem;
   }
   .btn-connection{
