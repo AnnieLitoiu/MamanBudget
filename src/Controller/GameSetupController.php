@@ -12,31 +12,26 @@ use Symfony\Component\Routing\Annotation\Route;
 class GameSetupController extends AbstractController
 {
     // Page où l'on choisit la composition familiale (Bébé / Ado / Les deux)
-    #[Route('/family', name: 'game_setup_family')]
+    #[Route('/family', name: 'game_setup_family', methods: ['GET','POST'])]
     public function family(Request $request): Response
     {
-        // On impose que l'utilisateur soit connecté avant de démarrer une partie
+        // Exige un utilisateur connecté
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
-        // On construit le formulaire (simple radio boutons)
+        // Formulaire
         $form = $this->createForm(FamilyChoiceType::class);
         $form->handleRequest($request);
 
-        // Si l'utilisateur a validé le formulaire sans erreur
         if ($form->isSubmitted() && $form->isValid()) {
-            // On récupère la valeur choisie (bebe / ado / les_deux)
-            $composition = $form->get('composition')->getData();
-
-            // On la stocke en session (rapide, pas de migration pour l’instant)
+            $composition = $form->get('composition')->getData(); // bebe | ado | les_deux
             $request->getSession()->set('compositionFamiliale', $composition);
 
-            // Ensuite on démarre réellement la partie ,route game_new
-            return $this->redirectToRoute('game_new');
+            return $this->redirectToRoute('game_new'); // vérifie que cette route existe
         }
 
-        // Premier affichage ou formulaire invalide ,on ré-affiche le form
-        return $this->render('game/setup_family.html.twig', [
-            'form' => $form,
+        // Affichage
+        return $this->render('game_setup/index.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 }
