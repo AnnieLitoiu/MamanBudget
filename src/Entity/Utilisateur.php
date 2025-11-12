@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -29,6 +31,20 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToOne(mappedBy: 'utilisateur', cascade: ['persist', 'remove'])]
     private ?Avatar $avatar = null;
+
+    #[ORM\OneToOne(mappedBy: 'utilisateur', cascade: ['persist', 'remove'])]
+    private ?Profil $profil = null;
+
+    #[ORM\OneToOne(mappedBy: 'utilisateur', cascade: ['persist', 'remove'])]
+    private ?TableauDeBord $tableauDeBord = null;
+
+    #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Partie::class, cascade: ['persist', 'remove'])]
+    private Collection $parties;
+
+    public function __construct()
+    {
+        $this->parties = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -103,6 +119,69 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         $this->avatar = $avatar;
+        return $this;
+    }
+
+    public function getProfil(): ?Profil
+    {
+        return $this->profil;
+    }
+
+    public function setProfil(?Profil $profil): static
+    {
+        if ($profil === null && $this->profil !== null) {
+            $this->profil->setUtilisateur(null);
+        }
+
+        if ($profil !== null && $profil->getUtilisateur() !== $this) {
+            $profil->setUtilisateur($this);
+        }
+
+        $this->profil = $profil;
+        return $this;
+    }
+
+    public function getTableauDeBord(): ?TableauDeBord
+    {
+        return $this->tableauDeBord;
+    }
+
+    public function setTableauDeBord(?TableauDeBord $tableauDeBord): static
+    {
+        if ($tableauDeBord === null && $this->tableauDeBord !== null) {
+            $this->tableauDeBord->setUtilisateur(null);
+        }
+
+        if ($tableauDeBord !== null && $tableauDeBord->getUtilisateur() !== $this) {
+            $tableauDeBord->setUtilisateur($this);
+        }
+
+        $this->tableauDeBord = $tableauDeBord;
+        return $this;
+    }
+
+    /** @return Collection<int, Partie> */
+    public function getParties(): Collection
+    {
+        return $this->parties;
+    }
+
+    public function addPartie(Partie $partie): static
+    {
+        if (!$this->parties->contains($partie)) {
+            $this->parties->add($partie);
+            $partie->setUtilisateur($this);
+        }
+        return $this;
+    }
+
+    public function removePartie(Partie $partie): static
+    {
+        if ($this->parties->removeElement($partie)) {
+            if ($partie->getUtilisateur() === $this) {
+                $partie->setUtilisateur(null);
+            }
+        }
         return $this;
     }
 
