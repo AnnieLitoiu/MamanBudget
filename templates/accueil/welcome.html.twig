@@ -5,10 +5,6 @@
 {% block body %}
   <h1>Bienvenue dans MamanSolo 💕</h1>
 
-  {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-    <a href="{{ path('app_welcome') }}">Commencer le jeu</a><br>
-    <a href="{{ path('app_logout') }}">Se déconnecter</a>
-  {% else %}
-    <a href="{{ path('app_login') }}" class="btn">Commencer</a>
-  {% endif %}
+  <a href="{{ path('app_login') }}" class="btn">Commencer</a>
+  
 {% endblock %}

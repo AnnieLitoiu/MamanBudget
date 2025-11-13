@@ -11,9 +11,8 @@ class SecurityController extends AbstractController
     #[Route(path: '/login', name: 'app_login', methods: ['GET','POST'])]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        if ($this->getUser()) {
-            return $this->redirectToRoute('app_welcome');
-        }
+        // On NE redirige plus si l'utilisateur est déjà connecté.
+        // Il verra quand même le formulaire de login.
 
         return $this->render('security/login.html.twig', [
             'last_username' => $authenticationUtils->getLastUsername(),
@@ -24,6 +23,6 @@ class SecurityController extends AbstractController
     #[Route(path: '/logout', name: 'app_logout')]
     public function logout(): void
     {
-        
+        // Laisser vide, géré par Symfony via security.yaml
     }
 }

@@ -48,8 +48,9 @@ class AccueilController extends AbstractController
             // auto-login puis retour vers /welcome
             $security->login($utilisateur);
 
-            return $this->redirectToRoute('app_welcome');
+            return $this->redirectToRoute('app_menu');
         }
+
 
         return $this->render('security/register.html.twig', [
             'form' => $form,
