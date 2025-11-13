@@ -13,7 +13,7 @@ class TableauDeBord
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\OneToOne(inversedBy: 'tableauDeBord', targetEntity: Profil::class)]
+    #[ORM\ManyToOne(inversedBy: 'tableauDeBords', targetEntity: Profil::class)]
     #[ORM\JoinColumn(nullable: true)]
     private ?Profil $profil = null;
 

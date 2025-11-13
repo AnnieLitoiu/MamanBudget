@@ -26,19 +26,10 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
         $nomsUtilisateurs = [
             ['nom' => 'Sophie Dupont', 'email' => 'sophie.dupont@example.com', 'score' => 7600],
             ['nom' => 'Julie Claessens', 'email' => 'julie.claessens@example.com', 'score' => 8700],
-            ['nom' => 'Charlotte Van den Berg', 'email' => 'charlotte.vandenberg@example.com', 'score' => 6800],
-            ['nom' => 'Marie Janssens', 'email' => 'marie.janssens@example.com', 'score' => 9100],
-            ['nom' => 'Anne Vermeulen', 'email' => 'anne.vermeulen@example.com', 'score' => 7900],
             ['nom' => 'Fatima El Amrani', 'email' => 'fatima.elamrani@example.com', 'score' => 8500],
             ['nom' => 'Amina Benali', 'email' => 'amina.benali@example.com', 'score' => 7800],
-            ['nom' => 'Leila Kaddouri', 'email' => 'leila.kaddouri@example.com', 'score' => 9200],
-            ['nom' => 'Samira Mansouri', 'email' => 'samira.mansouri@example.com', 'score' => 6900],
-            ['nom' => 'Nadia Hamidi', 'email' => 'nadia.hamidi@example.com', 'score' => 8100],
             ['nom' => 'Elena Popescu', 'email' => 'elena.popescu@example.com', 'score' => 7500],
             ['nom' => 'Ioana Ionescu', 'email' => 'ioana.ionescu@example.com', 'score' => 8800],
-            ['nom' => 'Andreea Constantinescu', 'email' => 'andreea.constantinescu@example.com', 'score' => 7200],
-            ['nom' => 'Maria Dumitrescu', 'email' => 'maria.dumitrescu@example.com', 'score' => 9500],
-            ['nom' => 'Gabriela Stanescu', 'email' => 'gabriela.stanescu@example.com', 'score' => 8300],
         ];
 
         $typesPartie = ['bebe', 'ado', 'deux'];
@@ -98,9 +89,8 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
                 $partie->setNbSemaines($nbSemaines);
                 $partie->setSemaineCourante(rand(1, $nbSemaines));
 
-                // État aléatoire
-                $etats = ['EN_COURS', 'TERMINEE', 'TERMINEE', 'TERMINEE']; // Plus de parties terminées
-                $partie->setEtat($etats[array_rand($etats)]);
+                // État toujours TERMINEE (pas de parties EN_COURS dans les fixtures)
+                $partie->setEtat('TERMINEE');
 
                 $manager->persist($partie);
             }
@@ -126,7 +116,7 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
         $testTableau->setClassement(['rang' => 1, 'total_joueurs' => 16, 'progression' => 15]);
         $manager->persist($testTableau);
 
-        // Créer une partie en cours pour le test user
+        // Créer une partie terminée pour le test user (pas EN_COURS sans semaines)
         $testPartie = new Partie();
         $testPartie->setUtilisateur($testUser);
         $testPartie->setDate(new \DateTimeImmutable());
@@ -135,9 +125,9 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
         $testPartie->setBudgetCourant('1750');
         $testPartie->setBienEtreInitial(75);
         $testPartie->setBonheurCourant(80);
-        $testPartie->setSemaineCourante(5);
+        $testPartie->setSemaineCourante(12);
         $testPartie->setNbSemaines(12);
-        $testPartie->setEtat('EN_COURS');
+        $testPartie->setEtat('TERMINEE');
         $manager->persist($testPartie);
 
         $manager->flush();

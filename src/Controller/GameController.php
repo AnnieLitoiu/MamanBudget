@@ -31,12 +31,12 @@ class GameController extends AbstractController
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         $session      = $request->getSession();
-        $composition  = $session->get('compositionFamiliale'); // bebe|ado|les_deux
+        $composition  = $session->get('compositionFamiliale'); // bebe|ado|deux
         $logement     = $session->get('logement');
         $situationPro = $session->get('situationPro');
 
         if (!$composition) {
-            $this->addFlash('warning', 'Choisis d’abord ta situation familiale.');
+            $this->addFlash('warning', "Choisis d'abord ta situation familiale.");
             return $this->redirectToRoute('game_setup_family');
         }
 
@@ -45,16 +45,19 @@ class GameController extends AbstractController
 
         // 1) Calculer le budget/bonheur de départ selon la situation
         $presets = [
-            'bebe'     => ['budget' => '1200.00', 'bonheur' => 70],
-            'ado'      => ['budget' => '1000.00', 'bonheur' => 65],
-            'les_deux' => ['budget' => '900.00',  'bonheur' => 60],
+            'bebe'      => ['budget' => '1200.00', 'bonheur' => 70, 'bienEtre' => 70],
+            'ado'       => ['budget' => '1000.00', 'bonheur' => 65, 'bienEtre' => 65],
+            'les_deux'  => ['budget' => '900.00',  'bonheur' => 60, 'bienEtre' => 60],
         ];
-        $base = $presets[$composition] ?? ['budget' => '1000.00', 'bonheur' => 65];
+        $base = $presets[$composition] ?? ['budget' => '1000.00', 'bonheur' => 65, 'bienEtre' => 65];
 
-        // 2) Créer la Partie initiale
+        // 2) Créer la Partie initiale avec le type de composition
         $partie = (new Partie())
             ->setUtilisateur($user)
+            ->setType($composition)
+            ->setBudgetInitial($base['budget'])
             ->setBudgetCourant($base['budget'])
+            ->setBienEtreInitial($base['bienEtre'])
             ->setBonheurCourant($base['bonheur']);
 
         // 3) Démarrer la partie via le GameEngine (4 semaines)
@@ -64,8 +67,9 @@ class GameController extends AbstractController
         $this->em->persist($partie);
         $this->em->flush();
 
-        // 5) Garder l'id de la partie en session si tu veux
+        // 5) Garder l'id de la partie et la composition en session
         $session->set('current_game_id', $partie->getId());
+        $session->set('current_composition', $composition);
 
         // 6) Rediriger vers l'écran de jeu (boucle des semaines)
         return $this->redirectToRoute('game_play', ['id' => $partie->getId()]);
@@ -143,20 +147,23 @@ class GameController extends AbstractController
         if ($partie->getEtat() === 'EN_COURS') {
             $evenement = $semaine->getEvenementCourant();
 
-            // Si aucun événement encore assigné à cette semaine, on en pioche un
+            // Si aucun événement encore assigné à cette semaine, on en pioche un aléatoire
             if (!$evenement) {
-                // Optionnel : récupérer une catégorie dans l'URL (?categorie=bebe/ado/deux)
-                $categorie = $request->query->get('categorie');
+                // Récupérer la composition familiale (bebe, ado, deux)
+                $composition = $partie->getType() ?? 'bebe';
 
-                $criteria = ['semaineApplicable' => $semaine->getNumero()];
-                if ($categorie) {
-                    $criteria['consequenceType'] = $categorie;
+                // Mapper "les_deux" vers "deux" pour correspondre au JSON
+                if ($composition === 'les_deux') {
+                    $composition = 'deux';
                 }
 
-                $repoEvt   = $this->em->getRepository(Evenement::class);
-                $candidats = $repoEvt->findBy($criteria);
+                $repoEvt = $this->em->getRepository(Evenement::class);
+
+                // Chercher tous les événements correspondant à cette composition
+                $candidats = $repoEvt->findBy(['scenario' => $composition]);
 
                 if ($candidats) {
+                    // Sélectionner un événement aléatoire
                     $evenement = $candidats[array_rand($candidats)];
                     $semaine->setEvenementCourant($evenement);
                     $this->em->flush();
@@ -186,6 +193,28 @@ class GameController extends AbstractController
         }
 
         $resume = $this->engine->resumeFinal($partie);
+
+        // Enregistrer le score dans le profil de l'utilisateur
+        /** @var Utilisateur $user */
+        $user = $this->getUser();
+        $profilRepo = $this->em->getRepository(\App\Entity\Profil::class);
+        $profil = $profilRepo->findOneBy(['utilisateur' => $user]);
+
+        if ($profil) {
+            // Mettre à jour le score si c'est un meilleur score
+            $scoreActuel = $profil->getScore() ?? 0;
+            if ($resume['score'] > $scoreActuel) {
+                $profil->setScore($resume['score']);
+                $this->em->flush();
+            }
+        } else {
+            // Créer un nouveau profil si nécessaire
+            $profil = new \App\Entity\Profil();
+            $profil->setUtilisateur($user);
+            $profil->setScore($resume['score']);
+            $this->em->persist($profil);
+            $this->em->flush();
+        }
 
         return $this->render('game/summary.html.twig', [
             'partie' => $partie,
