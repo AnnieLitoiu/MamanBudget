@@ -13,8 +13,8 @@ class EvenementFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        // 1) Chemin attendu : src/DataFixtures/evenements.json
-        $path = __DIR__ . '/evenements.json';
+        // 1) Chemin attendu : src/DataFixtures/events.json
+        $path = __DIR__ . '/../../public/data/events.json';
 
         // 2) Si le fichier n'existe pas => on NE plante PAS, on sort.
         if (!is_file($path)) {

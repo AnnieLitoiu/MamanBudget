@@ -14,8 +14,8 @@ class EventsJsonLoader
             throw new \RuntimeException("Fichier JSON introuvable : $jsonPath");
         }
 
-        $content  = file_get_contents($jsonPath);
-        $decoded  = json_decode($content, true);
+        $content = file_get_contents($jsonPath);
+        $decoded = json_decode($content, true);
         if ($decoded === null) {
             throw new \RuntimeException("JSON invalide dans $jsonPath");
         }
