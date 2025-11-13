@@ -1,26 +1,37 @@
 {% extends 'base.html.twig' %}
-{% block title %}Login | MamanSolo{% endblock %}
+{% block title %}Login | MamanBudget{% endblock %}
 
 {% block body %}
-  <h1>Se connecter 💕</h1>
+  <div class="container">
+    <h1>Maman Budget</h1>
 
-  {% if error %}
-    <div class="error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-  {% endif %}
+    <!-- Image de fond -->
+    <img src="{{ asset('images-mamanSolo/living-room.webp') }}" alt="Salon" class="background">
 
-  <form method="post" action="{{ path('app_login') }}">
-    <label for="username">Email</label>
-    <input type="text" id="username" name="_username" value="{{ last_username }}" required autofocus>
+    <!-- Personnage -->
+    <img src="{{ asset('images-mamanSolo/avatar-maman.png') }}" alt="Maman" class="character">
 
-    <label for="password">Mot de passe</label>
-    <input type="password" id="password" name="_password" required>
+    <form method="post" action="{{ path('app_login') }}" class="connexion-form">
+      <h2>Connexion</h2>
 
-    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+      {% if error %}
+        <div class="error">
+          {{ error.messageKey|trans(error.messageData, 'security') }}
+        </div>
+      {% endif %}
 
-    <input type="hidden" name="_target_path" value="{{ path('app_menu') }}">
+      <label for="username">E-mail :</label>
+      <input type="text" id="username" name="_username" value="{{ last_username }}" required autofocus>
 
-    <button class="btn" type="submit">Connexion</button>
-  </form>
+      <label for="password">Mot de passe :</label>
+      <input type="password" id="password" name="_password" required>
 
-  <p>Pas de compte ? <a href="{{ path('app_register') }}">Créer un compte</a></p>
+      <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+      <div class="btn-connection">
+        <button class="btn-connecter" type="submit">Se connecter</button>
+        <a href="{{ path('app_register') }}" class="btn-connecter">Créer un compte</a>
+      </div>
+    </form>
+  </div>
 {% endblock %}
