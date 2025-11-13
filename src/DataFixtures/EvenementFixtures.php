@@ -109,3 +109,4 @@ class EvenementFixtures extends Fixture
         $manager->flush();
     }
 
+}

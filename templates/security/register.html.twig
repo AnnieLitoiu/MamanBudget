@@ -1,12 +1,40 @@
 {% extends 'base.html.twig' %}
-{% block title %}Register | MamanSolo{% endblock %}
+{% block title %}Register | MamanBudget{% endblock %}
 
 {% block body %}
-  <h1>Créer mon compte 💕</h1>
+  <header class="header-nav">
+    <h6>Maman Budget</h6>
+    <nav>
+      <ul>
+        <li><a href="{{ path('app_welcome') }}">Accueil</a></li>
+        <li><a href="{{ path('app_login') }}">Démarrer</a></li>
+        <li><a href="{{ path('profil_dashboard') }}">Profil</a></li>
+        <li><a href="{{ path('scores_index') }}">Scores</a></li>
+      </ul>
+    </nav>
+  </header>
 
-  {{ form_start(form) }}
-    {{ form_errors(form) }}
-    {{ form_widget(form) }}
-    <button type="submit">🎮 Commencer le jeu</button>
-  {{ form_end(form) }}
+  <main>
+    <div class="card">
+      <h2>Formulaire d'inscription</h2>
+
+      {{ form_start(form) }}
+        {{ form_errors(form) }}
+
+        {# Si tu veux laisser Symfony générer tous les champs #}
+        {{ form_widget(form) }}
+
+        <button type="submit" class="btn-connecter">Valider</button>
+      {{ form_end(form) }}
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 MamanSolo. Tous droits réservés.</p>
+    <div class="socials">
+      <a href="https://www.instagram.com/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+      <a href="https://fr.linkedin.com/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+      <a href="https://www.facebook.com/?locale=fr_FR"><i class="fa-brands fa-facebook"></i></a>
+    </div>
+  </footer>
 {% endblock %}

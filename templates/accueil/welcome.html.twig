@@ -1,10 +1,33 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Welcome | MamanSolo{% endblock %}
+{% block title %}Accueil | MamanBudget{% endblock %}
 
 {% block body %}
-  <h1>Bienvenue dans MamanSolo 💕</h1>
+  <div class="container">
+    <h1>Maman Budget</h1>
 
-  <a href="{{ path('app_login') }}" class="btn">Commencer</a>
-  
+    {# Bouton qui va vers la page de login Symfony #}
+    <a href="{{ path('app_login') }}" class="btn-accueil">Compris, on y va</a>
+
+    <!-- Image de fond -->
+    <img src="{{ asset('images-mamanSolo/living-room.webp') }}" alt="Salon" class="background">
+
+    <!-- Femme (personnage) -->
+    <img src="{{ asset('images-mamanSolo/avatar-maman.png') }}" alt="Femme expliquant" class="character">
+
+    <!-- Bulles de texte -->
+    <div class="bubble" id="bubble1">Coucou… moi, c’est Orsula.</div>
+    <div class="bubble" id="bubble2">
+      Ici, pas de super-héros, pas de cape — juste une maman qui fait de son mieux pour que la journée tienne debout...
+    </div>
+    <div class="bubble" id="bubble3">
+      Ce jeu n’est pas qu’une question de budget ou de chiffres. C’est une histoire de cœur, d’équilibre et de choix...
+    </div>
+    <div class="bubble" id="bubble4">
+      Ton défi ? Trouver ton équilibre, semaine après semaine, entre le budget, ton bien-être et le bonheur des enfants.
+    </div>
+    <div class="bubble" id="bubble5">
+      Tu verras, certaines décisions feront sourire, d’autres feront réfléchir. Mais l’important, c’est d’avancer 💕
+    </div>
+  </div>
 {% endblock %}
