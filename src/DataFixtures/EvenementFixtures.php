@@ -76,23 +76,23 @@ class EvenementFixtures extends Fixture
 
                     // Budget (string en DB)
                     if (array_key_exists('budget', $impact)) {
-                        $option->setDeltaBudget((string) $impact['budget']);
+                        $option->setDeltaBudget((string)$impact['budget']);
                     }
 
                     // Bien-être + stress → on combine dans un même delta
                     $deltaBienEtre = 0;
                     if (array_key_exists('bienEtre', $impact)) {
-                        $deltaBienEtre += (int) $impact['bienEtre'];
+                        $deltaBienEtre += (int)$impact['bienEtre'];
                     }
                     if (array_key_exists('stress', $impact)) {
                         // On considère que le stress diminue le bien-être
-                        $deltaBienEtre -= (int) $impact['stress'];
+                        $deltaBienEtre -= (int)$impact['stress'];
                     }
                     $option->setDeltaBienEtre($deltaBienEtre);
 
                     // Bonheur des enfants
                     if (array_key_exists('enfants', $impact)) {
-                        $option->setDeltaBonheur((int) $impact['enfants']);
+                        $option->setDeltaBonheur((int)$impact['enfants']);
                     }
 
                     $option->setEvenement($event);
@@ -109,3 +109,4 @@ class EvenementFixtures extends Fixture
         $manager->flush();
     }
 
+}
