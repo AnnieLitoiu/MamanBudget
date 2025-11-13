@@ -86,7 +86,20 @@
               { "text": "Se coucher tôt", "impact": { "bienEtre": 1 } }
             ]
           }
-      ]
+      ],
+    "evenementAleatoire": {
+        "text": "Tu as gagné une prime !",
+        "impact": { "budget": 100 },
+        "type": "bonus"
+      },
+      "bilan": {
+        "resume": {
+          "budget": "Tu as dû faire plusieurs dépenses, mais tu as gardé le contrôle.",
+          "bienEtre": "La fatigue se fait sentir, mais tu tiens bon.",
+          "enfants": "Ton enfant ressent ton amour malgré les nuits courtes."
+        },
+        "conseil": "Essaie de dormir dès que possible. Même une petite sieste change tout !"
+      }
     },
 
     "week2": {
@@ -169,7 +182,20 @@
               { "text": "Ne pas y aller", "impact": { "enfants": -1 } }
             ]
           }
-      ]
+      ],
+    "evenementAleatoire": {
+        "text": "Tu as gagné au loto !",
+        "impact": { "budget": 50 },
+        "type": "bonus"
+      },
+      "bilan": {
+        "resume": {
+          "budget": "Quelques imprévus comme les factures et réparations ont pesé.",
+          "bienEtre": "Tu as su garder un bon moral malgré la fatigue.",
+          "enfants": "Les liens se renforcent grâce à tes efforts constants."
+        },
+        "conseil": "Pense à demander de l’aide si besoin — tu n’es pas seule !"
+      }
     },
 
     "week3": {
@@ -252,7 +278,21 @@
               { "text": "Annuler", "impact": { "bienEtre": -1 } }
             ]
           }
-      ]
+      ],
+    "evenementAleatoire": {
+        "text": "Tu as reçu un cadeau de ta grand-mère.",
+        "impact": { "budget": 80 },
+        "type": "bonus"
+      },
+      "bilan": {
+        "resume": {
+          "budget": "Les dépenses ont été modérées cette semaine.",
+          "bienEtre": "Tu sembles plus équilibrée et apaisée.",
+          "enfants": "Les moments partagés ont fait beaucoup de bien à tout le monde."
+        },
+        "conseil": "Continue à prendre du temps de qualité avec les enfants — ça te recharge aussi."
+      }
+
     },
 
     "week4": {
@@ -335,8 +375,62 @@
               { "text": "Travaux ménagers", "impact": { "stress": 1 } }
             ]
           }
-      ]
+      ],
+    "evenementAleatoire": {
+        "text": "Ton frigo est tombé en panne.",
+        "impact": { "budget": -80 },
+        "type": "bonus"
+      },
+      "bilan": {
+        "resume": {
+          "budget": "Fin de mois difficile mais bien gérée.",
+          "bienEtre": "Tu retrouves un peu d’énergie et de fierté.",
+          "enfants": "Les progrès des enfants te donnent le sourire."
+        },
+        "conseil": "Regarde tout le chemin parcouru ce mois-ci. Tu fais un travail incroyable !"
+      }
+    },
+    "bilanFinal": {
+      "bon": {
+        "resume": {
+          "budget": "Tu as parfaitement géré ton budget ce mois-ci. Tes choix ont permis de maintenir une belle stabilité financière.",
+          "bienEtre": "Ton moral est bon : tu as su trouver du temps pour toi, te ressourcer et affronter les imprévus avec calme.",
+          "enfants": "Tes enfants se sentent écoutés, entourés et heureux. Ta présence leur a donné confiance et sérénité."
+        },
+        "conseil": "Bravo ! Tu termines le mois en équilibre, fière et plus forte. Continue à préserver ces bons réflexes — ils te mèneront loin. 🌞",
+        "statsSymboliques": {
+          "budgetMoyen": "bon",
+          "bienEtreMoyen": "bon",
+          "bonheurFamilial": "bon"
+        }
+      },
+      "moyen": {
+        "resume": {
+          "budget": "Tu as fait de ton mieux malgré quelques dépenses imprévues. Tu t’en es sortie sans trop de dégâts.",
+          "bienEtre": "Ton bien-être a connu des hauts et des bas, mais tu restes debout et courageuse.",
+          "enfants": "Tes enfants ont ressenti ton amour, même si la fatigue a parfois pris le dessus."
+        },
+        "conseil": "Tu t’en sors bien, vraiment. Essaie juste de penser un peu plus à toi le mois prochain, pour recharger tes batteries. 💛",
+        "statsSymboliques": {
+          "budgetMoyen": "moyen",
+          "bienEtreMoyen": "moyen",
+          "bonheurFamilial": "moyen"
+        }
+      },
+      "mal": {
+        "resume": {
+          "budget": "Le budget a été difficile à équilibrer ce mois-ci, et les dépenses ont pesé sur ton moral.",
+          "bienEtre": "Tu sembles épuisée et stressée. Le rythme a été rude, et tu as eu peu de temps pour souffler.",
+          "enfants": "Les enfants ont ressenti ton stress, mais ils t’aiment et ont besoin que tu prennes soin de toi aussi."
+        },
+        "conseil": "Ce mois a été dur, mais tu peux rebondir. N’hésite pas à demander de l’aide, à ralentir un peu, et à célébrer même les petites victoires. ❤️",
+        "statsSymboliques": {
+          "budgetMoyen": "mal",
+          "bienEtreMoyen": "mal",
+          "bonheurFamilial": "moyen"
+        }
+      }
     }
-  }  
+  }
 }
 
