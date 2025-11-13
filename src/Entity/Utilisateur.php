@@ -26,6 +26,9 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $motDePasse = null;
 
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
+    private ?\DateTimeImmutable $createdAt = null;
+
     #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Profil::class, cascade: ['persist', 'remove'])]
     private Collection $profils;
 
@@ -36,6 +39,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->parties = new ArrayCollection();
         $this->profils = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -125,6 +129,18 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         }
         return $this;
     }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(?\DateTimeImmutable $createdAt): static
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+    
     /* ===================== SECURITY ===================== */
 
     public function getPassword(): ?string
