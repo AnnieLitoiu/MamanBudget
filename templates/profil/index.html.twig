@@ -5,8 +5,21 @@
   <section class="container" style="max-width: 720px; margin: 2rem auto;">
     <h1>Mon profil</h1>
     <p class="text-muted">
-      Aperçu de tes statistiques de jeu. Plus tu joues, plus ces indicateurs se remplissent.
+      Aperçu de tes informations et de testatistiques de jeu. Plus tu joues, plus ces indicateurs se remplissent.
     </p>
+
+    <div class="card p-3 mb-4">
+      <h2 class="h5 mb-3">Mes informations</h2>
+      <p><strong>Nom :</strong> {{ user.nom }}</p>
+      <p><strong>Email :</strong> {{ user.email }}</p>
+
+      {% if user.createdAt is defined and user.createdAt %}
+        <p><strong>Date d'inscription :</strong> {{ user.createdAt|date('d/m/Y') }}</p>
+      {% endif %}
+
+      <p><strong>Nombre de parties :</strong> {{ stats.games_played }}</p>
+      <p><strong>Meilleur score :</strong> {{ stats.best_score }}</p>
+    </div>
 
     <div class="row g-3 my-3">
       <div class="col-6 col-md-3">
