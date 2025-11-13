@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Service\GameDesignStats;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+
 use Symfony\Component\Routing\Annotation\Route;
+
 
 #[Route('/api')]
 class ScoresController extends AbstractController
