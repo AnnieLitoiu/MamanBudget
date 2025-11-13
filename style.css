@@ -11,11 +11,13 @@ body{
     font-family: Arial, sans-serif;
     background: linear-gradient(135deg,var(--bg), #b8e1ff);
     min-height: 100vh;
-    display: flex;
+    display: block;
     flex-direction: column;
     justify-content: center;
     gap: 2rem;
-    
+    padding: 0; 
+    margin: 0;
+
 }
 .card {
     width: 50%;
@@ -47,7 +49,7 @@ form {
 }
 h1{
     text-align: center;
-    padding: 0;
+    padding: 2rem;
     color: var(--colorFuchia);
 }
 h2{
@@ -90,62 +92,41 @@ a {
 
     }
 }
-/* style pour la page game.html
-.game-container{
-    display: flex;
-    flex-direction: column;
-    background-color: white;
-    width: 60%;
-    height: 60%;
-    margin: 2rem auto;
-    border-radius: 2rem;
-
-}
-div .situation{
-    
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    gap: 2rem;
-    margin: 1rem 0;
-
-
-}
-.paragraph-situation{
-    box-shadow: var(--bg) 0px 54px 55px, var(--bg) 0px -12px 30px, var(--bg) 0px 4px 6px, var(--bg) 0px 12px 13px, var(--colorFuchia) 0px -3px 5px;
-    padding: 1.5rem 6rem ;
-    border-radius: 1rem;
-
-} */
-body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, var(--bg), #b8e1ff);
-    min-height: 100vh;
-    display: block; /* Enlève le centrage flex */
-    padding: 0; /* Assure qu'il n'y ait pas de marges */
-    margin: 0; /* Enlève les marges par défaut */
-}
+/* style pour la page game.html*/
 
 .game-container {
-    display: block; /* Enlève la disposition en flex */
-    background-color: white;
-    width: 100%; /* Prend toute la largeur de l'écran */
-    height: auto; /* Prend la hauteur en fonction du contenu */
-    padding: 2rem; /* Ajoute un peu d'espace autour du contenu */
+    display: block; 
+    width: 100%; 
+    height: auto; 
+    padding: 2rem; 
 }
 
-.situation, .event-container {
-    display: flex; /* Garder la disposition en flex pour aligner les éléments horizontalement */
-    justify-content: space-between; /* Espace égal entre les éléments */
-    width: 100%; /* Pour que tout s'étale sur la largeur */
-    gap: 1rem; /* Espacement entre les éléments */
+.situation {
+    display: flex; 
+    justify-content: space-between; 
+    width: 90%; 
+    margin: 2rem auto;
+    gap: 1rem; 
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
+    background-color: var(--bg);
 }
 
 .paragraph-situation {
-    box-shadow: var(--bg) 0px 54px 55px, var(--bg) 0px -12px 30px, var(--bg) 0px 4px 6px, var(--bg) 0px 12px 13px, var(--colorFuchia) 0px -3px 5px;
-    padding: 1.5rem 2rem;
+    box-shadow: var(--bg) 0px 54px 55px, var(--bg) 0px -12px 30px, var(--colorFuchia) 0px 4px 6px, var(--bg) 0px 12px 13px, var(--colorFuchia) 0px -3px 5px;
+    padding: 1rem 1.5rem;
     border-radius: 1rem;
     flex-grow: 1; /* S'étend pour occuper toute la largeur disponible */
+}
+div .event-container{
+    background-color: white;
+    width: 90%;
+    height: 30rem;
+    margin: 2rem auto;
+    padding: 2rem;
+    box-shadow: var(--bg) 0px 54px 55px, var(--bg) 0px -12px 30px, var(--bg) 0px 4px 6px, var(--bg) 0px 12px 13px, var(--colorFuchia) 0px -3px 5px;
+    border-radius: 1rem;
 }
 
 
