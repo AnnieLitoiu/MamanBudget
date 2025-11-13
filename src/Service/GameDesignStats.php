@@ -1,6 +1,8 @@
 
 namespace App\Service;
 
+use App\Service\EventsJsonLoader;
+
 class GameDesignStats
 {
     public function __construct(
