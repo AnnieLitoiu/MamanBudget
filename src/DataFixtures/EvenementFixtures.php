@@ -7,6 +7,8 @@ use App\Entity\Option;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
+
+
 class EvenementFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
@@ -106,4 +108,4 @@ class EvenementFixtures extends Fixture
         // On flush une seule fois à la fin
         $manager->flush();
     }
-}
+
