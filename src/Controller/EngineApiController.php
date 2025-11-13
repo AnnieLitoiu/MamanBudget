@@ -48,7 +48,7 @@ class EngineApiController extends AbstractController
         if (!$p) return $this->json(['error'=>'game_not_found'], 404);
 
         $s = $this->em->getRepository(Semaine::class)
-             ->findOneBy(['partie'=>$p,'numero'=>$p->getSemaineCourante()]);
+            ->findOneBy(['partie'=>$p,'numero'=>$p->getSemaineCourante()]);
         if (!$s) return $this->json(['error'=>'week_not_found'], 404);
 
         $eventPayload = null;
@@ -80,7 +80,7 @@ class EngineApiController extends AbstractController
         if (!$p || $p->getEtat()!=='EN_COURS') return $this->json(['error'=>'not_found_or_ended'], 404);
 
         $s = $this->em->getRepository(Semaine::class)
-             ->findOneBy(['partie'=>$p,'numero'=>$p->getSemaineCourante()]);
+            ->findOneBy(['partie'=>$p,'numero'=>$p->getSemaineCourante()]);
         if (!$s) return $this->json(['error'=>'week_not_found'], 404);
 
         $d = json_decode($req->getContent(), true) ?? [];
@@ -127,7 +127,7 @@ class EngineApiController extends AbstractController
             'id'=>$o->getId(),'label'=>$o->getLibelle(),
             'delta'=>['budget'=>(string)$o->getDeltaBudget(),'bien_etre'=>$o->getDeltaBienEtre(),'bonheur'=>$o->getDeltaBonheur()],
         ]; }
-        return ['id'=>$e->getId(),'titre'=>$e->getTitre(),'description'=>$e->getDescription(),
+        return ['id'=>$e->getId(),'texte'=>$e->getTexte(),
                 'type'=>$e->getType(),'semaine'=>$e->getSemaineApplicable(),
                 'categorie'=>$e->getConsequenceType(),'options'=>$opts];
     }
