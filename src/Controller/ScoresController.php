@@ -10,6 +10,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
+dump(__FILE__, $kernel->getProjectDir(), $jsonPath ?? 'no custom path');
+exit;
+
+
 class ScoresController extends AbstractController
 {
     // Page "Tableau des scores"
