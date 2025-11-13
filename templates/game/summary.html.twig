@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Résumé de ta partie | MamanSolo{% endblock %}
+
+{% block body %}
+<section class="container" style="max-width: 720px; margin-top: 2rem;">
+
+  <h1 class="mb-3">Résumé de ta partie</h1>
+
+  <p class="mb-3">
+    Partie jouée le
+    {{ partie.date ? partie.date|date('d/m/Y') : '—' }}<br>
+    Budget final :
+    <strong>{{ resume.final.budget }} €</strong><br>
+    Bien-être total :
+    <strong>{{ resume.final.bien_etre }}</strong><br>
+    Bonheur des enfants :
+    <strong>{{ resume.final.bonheur }}</strong>
+  </p>
+
+  <h2 class="h5 mt-4">Moyennes sur le mois</h2>
+  <ul>
+    <li>Bien-être moyen : {{ resume.moyennes.bien_etre }}</li>
+    <li>Bonheur moyen : {{ resume.moyennes.bonheur }}</li>
+    <li>Budget moyen restant : {{ resume.moyennes.budget }} €</li>
+  </ul>
+
+  <a href="{{ path('app_menu') }}" class="btn btn-primary mt-3">
+    Retour au menu principal
+  </a>
+</section>
+{% endblock %}
