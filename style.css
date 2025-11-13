@@ -1,0 +1,151 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root {
+    --bg: #ffe5e0;
+    --colorFuchia: #e6456f;
+}
+body{
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,var(--bg), #b8e1ff);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    
+}
+.card {
+    width: 50%;
+    margin: 3rem auto;
+    padding: 2rem;
+    background-color: white;
+    box-shadow: var(--bg) 0px 54px 55px, var(--bg) 0px -12px 30px, var(--colorFuchia) 0px 4px 6px, var(--colorFuchia) 0px 12px 13px, var(--colorFuchia) 0px -3px 5px;
+    border-radius: 2rem;
+
+}
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    input {
+        padding: 0.5rem 3rem;
+        box-shadow: var(--bg) 0px 54px 55px, var(--bg) 0px -12px 30px, var(--bg) 0px 4px 6px, #f8cdd9 0px 12px 13px, var(--bg) 0px -3px 5px;
+        border: none;
+        border-bottom: 2px solid var(--colorFuchia);
+        margin-bottom: 2rem;
+    }
+    .options{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+      
+    }
+}
+h1{
+    text-align: center;
+    padding: 0;
+    color: var(--colorFuchia);
+}
+h2{
+    text-align: center;
+    padding: 1.5rem 0;
+
+}
+p{
+    padding: 2rem 0;
+
+}
+button{
+
+    color: white;
+    background-color: var(--colorFuchia);
+    border: none;
+    border-radius: 1rem;
+    padding: 0.8rem 2rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+
+    box-shadow: var(--bg) 0px 54px 55px, var(--bg) 0px -12px 30px, var(--colorFuchia) 0px 4px 6px, var(--colorFuchia) 0px 12px 13px, var(--colorFuchia) 0px -3px 5px;
+
+    &:hover {
+        background-color: var(--bg);
+        color: var(--colorFuchia);
+    }
+
+}
+a {
+    text-decoration: none;
+    color: #f086a2;
+    font-size: 1.2rem;
+    display: block;
+
+    &:hover {
+        text-decoration: underline;
+        background-color: #fadfe6;
+        color: var(--colorFuchia);
+
+    }
+}
+/* style pour la page game.html
+.game-container{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    width: 60%;
+    height: 60%;
+    margin: 2rem auto;
+    border-radius: 2rem;
+
+}
+div .situation{
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 2rem;
+    margin: 1rem 0;
+
+
+}
+.paragraph-situation{
+    box-shadow: var(--bg) 0px 54px 55px, var(--bg) 0px -12px 30px, var(--bg) 0px 4px 6px, var(--bg) 0px 12px 13px, var(--colorFuchia) 0px -3px 5px;
+    padding: 1.5rem 6rem ;
+    border-radius: 1rem;
+
+} */
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, var(--bg), #b8e1ff);
+    min-height: 100vh;
+    display: block; /* Enlève le centrage flex */
+    padding: 0; /* Assure qu'il n'y ait pas de marges */
+    margin: 0; /* Enlève les marges par défaut */
+}
+
+.game-container {
+    display: block; /* Enlève la disposition en flex */
+    background-color: white;
+    width: 100%; /* Prend toute la largeur de l'écran */
+    height: auto; /* Prend la hauteur en fonction du contenu */
+    padding: 2rem; /* Ajoute un peu d'espace autour du contenu */
+}
+
+.situation, .event-container {
+    display: flex; /* Garder la disposition en flex pour aligner les éléments horizontalement */
+    justify-content: space-between; /* Espace égal entre les éléments */
+    width: 100%; /* Pour que tout s'étale sur la largeur */
+    gap: 1rem; /* Espacement entre les éléments */
+}
+
+.paragraph-situation {
+    box-shadow: var(--bg) 0px 54px 55px, var(--bg) 0px -12px 30px, var(--bg) 0px 4px 6px, var(--bg) 0px 12px 13px, var(--colorFuchia) 0px -3px 5px;
+    padding: 1.5rem 2rem;
+    border-radius: 1rem;
+    flex-grow: 1; /* S'étend pour occuper toute la largeur disponible */
+}
+
+
