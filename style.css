@@ -61,7 +61,7 @@ p{
     padding: 2rem 0;
 
 }
-button{
+button, .btn-choix{
 
     color: white;
     background-color: var(--colorFuchia);
@@ -70,6 +70,10 @@ button{
     padding: 0.8rem 2rem;
     font-size: 1.5rem;
     cursor: pointer;
+    margin: 2rem 4rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    
+    gap: 1rem;
 
     box-shadow: var(--bg) 0px 54px 55px, var(--bg) 0px -12px 30px, var(--colorFuchia) 0px 4px 6px, var(--colorFuchia) 0px 12px 13px, var(--colorFuchia) 0px -3px 5px;
 
@@ -79,6 +83,7 @@ button{
     }
 
 }
+
 a {
     text-decoration: none;
     color: #f086a2;
@@ -128,5 +133,10 @@ div .event-container{
     box-shadow: var(--bg) 0px 54px 55px, var(--bg) 0px -12px 30px, var(--bg) 0px 4px 6px, var(--bg) 0px 12px 13px, var(--colorFuchia) 0px -3px 5px;
     border-radius: 1rem;
 }
-
+#eventText {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #333;
+  }
 

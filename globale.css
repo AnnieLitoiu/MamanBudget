@@ -139,6 +139,7 @@ h2 {
     &:hover {
         background-color: var(--bg);
         color: #e6456f;
+        transition: background-color 0.3s ease, transform 0.2s ease;
     }
 
 }
@@ -174,10 +175,12 @@ h2 {
                 color: white;
                 font-size: 1.2rem;
                 display: block;
+               
 
                 &:hover {
                     text-decoration: underline;
                     background-color: #df5c7f;
+                    transition: background-color 0.3s ease, transform 0.2s ease;
 
                 }
 
@@ -212,6 +215,7 @@ form {
         display: flex;
         flex-wrap: wrap;
         gap: 1rem;
+        transition: background-color 0.3s ease, transform 0.2s ease;
       
     }
     img{
