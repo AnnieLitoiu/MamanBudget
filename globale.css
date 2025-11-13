@@ -216,7 +216,7 @@ form {
     img{
         width: 7rem;
         height: 5rem;
-        object-fit: cover;
+        object-fit: contain;
     }
 
 }
