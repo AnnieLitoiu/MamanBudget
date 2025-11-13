@@ -35,7 +35,7 @@ class GameSetupController extends AbstractController
             $session->set('situationPro', $situationPro);
 
             // Lancement du jeu
-            return $this->redirectToRoute('game_play');
+            return $this->redirectToRoute('game_start');
         }
 
         // Affichage
