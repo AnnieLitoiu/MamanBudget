@@ -29,6 +29,9 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private ?\DateTimeImmutable $createdAt = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $avatar = null;
+
     #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Profil::class, cascade: ['persist', 'remove'])]
     private Collection $profils;
 
@@ -140,7 +143,18 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         $this->createdAt = $createdAt;
         return $this;
     }
-    
+
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?string $avatar): static
+    {
+        $this->avatar = $avatar;
+        return $this;
+    }
+
     /* ===================== SECURITY ===================== */
 
     public function getPassword(): ?string

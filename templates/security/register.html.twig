@@ -223,6 +223,97 @@
     }
   }
 
+  /* Sélecteur d'avatar */
+  .avatar-selector {
+    margin-bottom: 1.5rem;
+  }
+
+  .avatar-selector > label {
+    display: block;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+  }
+
+  .avatar-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .avatar-option {
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .avatar-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .avatar-image-wrapper {
+    position: relative;
+    border: 3px solid #e0e0e0;
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    aspect-ratio: 1;
+  }
+
+  .avatar-option:hover .avatar-image-wrapper {
+    border-color: var(--colorFuchia);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(230, 69, 111, 0.2);
+  }
+
+  .avatar-option input[type="radio"]:checked + .avatar-image-wrapper {
+    border-color: var(--colorFuchia);
+    border-width: 4px;
+    box-shadow: 0 0 0 4px rgba(230, 69, 111, 0.2);
+  }
+
+  .avatar-option input[type="radio"]:checked + .avatar-image-wrapper::after {
+    content: '✓';
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 28px;
+    height: 28px;
+    background: var(--colorFuchia);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    box-shadow: 0 2px 8px rgba(230, 69, 111, 0.4);
+  }
+
+  .avatar-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .avatar-name {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 0.5rem;
+    font-weight: 500;
+  }
+
+  .avatar-option input[type="radio"]:checked ~ .avatar-name {
+    color: var(--colorFuchia);
+    font-weight: 600;
+  }
+
   /* Responsive */
   @media (max-width: 768px) {
     .register-header h1 {
@@ -231,6 +322,22 @@
 
     .register-card {
       padding: 2rem;
+      max-width: 100%;
+    }
+
+    .avatar-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.8rem;
+    }
+
+    .avatar-name {
+      font-size: 0.75rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .avatar-grid {
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 </style>
@@ -259,7 +366,44 @@
 
       {{ form_errors(form) }}
 
-      {{ form_widget(form) }}
+      {# Champs nom, email, password #}
+      <div>
+        {{ form_label(form.nom) }}
+        {{ form_widget(form.nom) }}
+        {{ form_errors(form.nom) }}
+      </div>
+
+      <div>
+        {{ form_label(form.email) }}
+        {{ form_widget(form.email) }}
+        {{ form_errors(form.email) }}
+      </div>
+
+      <div>
+        {{ form_label(form.motDePasse) }}
+        {{ form_widget(form.motDePasse) }}
+        {{ form_errors(form.motDePasse) }}
+      </div>
+
+      {# Sélecteur d'avatar personnalisé #}
+      <div class="avatar-selector">
+        {{ form_label(form.avatar) }}
+        <div class="avatar-grid">
+          {% for child in form.avatar %}
+            <label class="avatar-option">
+              {{ form_widget(child) }}
+              <div class="avatar-image-wrapper">
+                <img src="{{ asset('images/images-avatar/' ~ child.vars.value) }}"
+                     alt="{{ child.vars.label }}">
+              </div>
+              <div class="avatar-name">{{ child.vars.label }}</div>
+            </label>
+          {% endfor %}
+        </div>
+        {{ form_errors(form.avatar) }}
+      </div>
+
+      {{ form_rest(form) }}
 
       <button type="submit" class="btn-submit">S'inscrire</button>
     {{ form_end(form) }}
