@@ -256,8 +256,8 @@ div .card-demarrer{
     flex-direction: column;
     gap: 1.5rem;
     position: absolute;
-    top: 50%;
-    right: 25%;
+    top: 40%;
+    right: 35%;
     transform: translateY(-50%);
 }
 

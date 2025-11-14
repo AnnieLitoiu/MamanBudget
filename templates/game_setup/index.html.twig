@@ -14,7 +14,6 @@
     overflow: hidden;
   }
 
-  /* Bulles décoratives */
   .deco-bubble {
     position: absolute;
     border-radius: 50%;
@@ -48,15 +47,10 @@
   }
 
   @keyframes float {
-    0%, 100% {
-      transform: translateY(0) scale(1);
-    }
-    50% {
-      transform: translateY(-20px) scale(1.05);
-    }
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-20px) scale(1.05); }
   }
 
-  /* Titre */
   .setup-header {
     text-align: center;
     margin-bottom: 2rem;
@@ -80,7 +74,6 @@
     line-height: 1.7;
   }
 
-  /* Formulaire */
   .setup-form-wrapper {
     max-width: 700px;
     width: 100%;
@@ -93,15 +86,8 @@
     z-index: 1;
   }
 
-  fieldset {
-    border: none;
-    padding: 0;
-    margin-bottom: 2.5rem;
-  }
-
-  fieldset:last-of-type {
-    margin-bottom: 2rem;
-  }
+  fieldset { border: none; padding: 0; margin-bottom: 2.5rem; }
+  fieldset:last-of-type { margin-bottom: 2rem; }
 
   legend {
     font-size: 1.8rem;
@@ -124,17 +110,12 @@
     cursor: pointer;
   }
 
-  .form-check:last-child {
-    margin-bottom: 0;
-  }
-
   .form-check:hover {
     background: rgba(230, 69, 111, 0.05);
     border-color: var(--colorFuchia);
     transform: translateX(5px);
   }
 
-  /* Style personnalisé pour les radio buttons */
   .form-check-input {
     appearance: none;
     -webkit-appearance: none;
@@ -145,13 +126,8 @@
     border: 3px solid #d0d0d0;
     border-radius: 50%;
     background: white;
-    position: relative;
     transition: all 0.3s ease;
     flex-shrink: 0;
-  }
-
-  .form-check-input:hover {
-    border-color: var(--colorFuchia);
   }
 
   .form-check-input:checked {
@@ -163,11 +139,9 @@
   .form-check-input:checked::after {
     content: '';
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    width: 12px;
-    height: 12px;
+    width: 12px; height: 12px;
     background: white;
     border-radius: 50%;
   }
@@ -178,21 +152,11 @@
     color: #333;
     font-weight: 500;
     flex: 1;
-    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
   }
 
-  .form-check:has(input:checked) {
-    background: rgba(230, 69, 111, 0.08);
-    border-color: var(--colorFuchia);
-    box-shadow: 0 4px 12px rgba(230, 69, 111, 0.15);
-  }
-
-  .form-check:has(input:checked) .form-check-label {
-    color: var(--colorFuchia);
-    font-weight: bold;
-  }
-
-  /* Bouton submit */
   .btn-submit {
     width: 100%;
     padding: 1rem 2rem;
@@ -204,122 +168,127 @@
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(230, 69, 111, 0.3);
     margin-top: 2rem;
   }
 
-  .btn-submit:hover {
-    background: #ff6b9d;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(230, 69, 111, 0.4);
-  }
-
-  /* Bouton retour */
   .btn-retour {
     display: inline-block;
     margin-top: 1.5rem;
     padding: 0.8rem 2rem;
     background: white;
     color: var(--colorFuchia);
-    text-decoration: none;
     border-radius: 2rem;
-    font-size: 1rem;
-    font-weight: bold;
-    transition: all 0.3s ease;
     border: 2px solid var(--colorFuchia);
-  }
-
-  .btn-retour:hover {
-    background: var(--colorFuchia);
-    color: white;
-    transform: translateY(-2px);
-  }
-
-  /* Animations */
-  @keyframes fadeInDown {
-    from {
-      opacity: 0;
-      transform: translateY(-30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  /* Responsive */
-  @media (max-width: 768px) {
-    .setup-header h1 {
-      font-size: 2.2rem;
-    }
-
-    .setup-form-wrapper {
-      padding: 2rem 1.5rem;
-    }
-
-    .form-check {
-      padding: 0.8rem 1rem;
-    }
+    font-weight: bold;
+    text-decoration: none;
   }
 </style>
 {% endblock %}
 
 {% block body %}
-  <section class="container-setup">
-    {# Bulles décoratives #}
-    <div class="deco-bubble"></div>
-    <div class="deco-bubble"></div>
-    <div class="deco-bubble"></div>
+<section class="container-setup">
 
-    {# Titre #}
-    <div class="setup-header">
-      <h1>Configure ta partie</h1>
-      <p>
-        Choisis ta situation pour commencer l'aventure. Ces choix influenceront ton budget de départ et tes défis.
-      </p>
+  <div class="deco-bubble"></div>
+  <div class="deco-bubble"></div>
+  <div class="deco-bubble"></div>
+
+  <div class="setup-header">
+    <h1>Configure ta partie</h1>
+    <p>
+      Choisis ta situation pour commencer l'aventure. Ces choix influenceront ton budget de départ et tes défis.
+    </p>
+  </div>
+
+  <div class="setup-form-wrapper">
+    {{ form_start(form) }}
+
+    {# Situation familiale = Bébé / Ado / Les deux #}
+    <fieldset>
+      <legend>{{ form_label(form.composition) }}</legend>
+
+      {% for child in form.composition %}
+        <label class="form-check">
+          {{ form_widget(child) }}
+
+          <span class="form-check-label">
+            {% if child.vars.value == 'bebe' %}
+              👶
+            {% endif %}
+            {% if child.vars.value == 'ado' %}
+              🧒
+            {% endif %}
+            {% if child.vars.value == 'les_deux' %}
+              👶🧒
+            {% endif %}
+
+            {{ form_label(child) }}
+          </span>
+        </label>
+      {% endfor %}
+    </fieldset>
+
+    {# Type de logement = Studio / Appartement / Maison #}
+    <fieldset>
+      <legend>{{ form_label(form.logement) }}</legend>
+
+      {% for child in form.logement %}
+        <label class="form-check">
+          {{ form_widget(child) }}
+
+          <span class="form-check-label">
+            {% if child.vars.value == 'studio' %}
+              🏠
+            {% endif %}
+            {% if child.vars.value == 'appartement' %}
+              🏘️
+            {% endif %}
+            {% if child.vars.value == 'maison' %}
+              🏡
+            {% endif %}
+
+            {{ form_label(child) }}
+          </span>
+        </label>
+      {% endfor %}
+    </fieldset>
+
+    {# Situation professionnelle = CDI / CDD / Intérim / Sans emploi #}
+    <fieldset>
+      <legend>{{ form_label(form.situationPro) }}</legend>
+
+      {% for child in form.situationPro %}
+        <label class="form-check">
+          {{ form_widget(child) }}
+
+          <span class="form-check-label">
+
+            {% if child.vars.value == 'cdi' %}
+              💼
+            {% endif %}
+            {% if child.vars.value == 'cdd' %}
+              📄
+            {% endif %}
+            {% if child.vars.value == 'interim' %}
+              🧳
+            {% endif %}
+            {% if child.vars.value == 'sans_emploi' %}
+              🔍
+            {% endif %}
+
+            {{ form_label(child) }}
+          </span>
+        </label>
+      {% endfor %}
+    </fieldset>
+
+    <button type="submit" class="btn-submit">Valider et démarrer</button>
+
+    {{ form_end(form) }}
+
+    <div style="text-align: center;">
+      <a href="{{ path('app_menu') }}" class="btn-retour">← Retour au menu</a>
     </div>
 
-    {# Formulaire #}
-    <div class="setup-form-wrapper">
-      {{ form_start(form) }}
-
-        {# Situation familiale #}
-        <fieldset>
-          <legend>{{ form_label(form.composition) }}</legend>
-          {{ form_widget(form.composition) }}
-        </fieldset>
-
-        {# Type de logement #}
-        <fieldset>
-          <legend>{{ form_label(form.logement) }}</legend>
-          {{ form_widget(form.logement) }}
-        </fieldset>
-
-        {# Situation professionnelle #}
-        <fieldset>
-          <legend>{{ form_label(form.situationPro) }}</legend>
-          {{ form_widget(form.situationPro) }}
-        </fieldset>
-
-        <button type="submit" class="btn-submit">Valider et démarrer</button>
-
-      {{ form_end(form) }}
-
-      <div style="text-align: center;">
-        <a href="{{ path('app_menu') }}" class="btn-retour">← Retour au menu</a>
-      </div>
-    </div>
-
-  </section>
+  </div>
+</section>
 {% endblock %}
