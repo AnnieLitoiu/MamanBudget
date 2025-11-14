@@ -38,15 +38,15 @@ h1 {
 
 .character {
     position: absolute;
-    bottom: 20%;
-    left: 50%;
+    bottom: 23%;
+    left: 54%;
     transform: translateX(-50%);
 }
 
 .bubble {
     position: absolute;
     bottom: 50%;
-    left: 47%;
+    left: 51%;
     background: white;
     border-radius: 15px;
     padding: 15px 20px;
@@ -191,7 +191,7 @@ h2 {
 }
 
 .card {
-    width: 50%;
+    width: 60%;
     margin: 3rem auto;
     padding: 2rem;
     background-color: white;
