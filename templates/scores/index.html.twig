@@ -1,10 +1,443 @@
 {% extends 'base.html.twig' %}
 {% block title %}Classement{% endblock %}
 
+{% block stylesheets %}
+<style>
+  .container-scores {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Bulles décoratives en arrière-plan */
+  .deco-bubble {
+    position: absolute;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(230, 69, 111, 0.1), rgba(255, 229, 224, 0.3));
+    pointer-events: none;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .deco-bubble:nth-child(1) {
+    width: 120px;
+    height: 120px;
+    top: 5%;
+    left: 8%;
+    animation-delay: 0s;
+  }
+
+  .deco-bubble:nth-child(2) {
+    width: 180px;
+    height: 180px;
+    top: 70%;
+    right: 5%;
+    animation-delay: 2s;
+  }
+
+  .deco-bubble:nth-child(3) {
+    width: 90px;
+    height: 90px;
+    bottom: 10%;
+    left: 20%;
+    animation-delay: 4s;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0) scale(1);
+    }
+    50% {
+      transform: translateY(-20px) scale(1.05);
+    }
+  }
+
+  /* Titre principal avec animation */
+  .scores-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    animation: fadeInDown 0.8s ease-out;
+    z-index: 1;
+  }
+
+  .scores-header h1 {
+    font-size: 3.5rem;
+    color: var(--colorFuchia);
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 4px rgba(230, 69, 111, 0.2);
+    font-weight: bold;
+  }
+
+  .scores-header p {
+    font-size: 1.3rem;
+    color: #555;
+  }
+
+  /* Conteneur du tableau avec style carte */
+  .scores-wrapper {
+    max-width: 900px;
+    width: 100%;
+    background: white;
+    border-radius: 1.5rem;
+    box-shadow: 0 8px 20px rgba(230, 69, 111, 0.15);
+    overflow: hidden;
+    animation: fadeInUp 1s ease-out 0.3s backwards;
+    border: 3px solid rgba(230, 69, 111, 0.1);
+    z-index: 1;
+  }
+
+  .scores-table {
+    width: 100%;
+  }
+
+  .scores-table table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .scores-table thead {
+    background: linear-gradient(135deg, var(--colorFuchia) 0%, #ff6b9d 100%);
+    color: white;
+  }
+
+  .scores-table th {
+    padding: 1.2rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+
+  .scores-table tbody tr {
+    border-bottom: 1px solid #f0f0f0;
+    transition: all 0.3s ease;
+  }
+
+  .scores-table tbody tr:hover {
+    background-color: rgba(230, 69, 111, 0.05);
+    transform: scale(1.01);
+  }
+
+  .scores-table tbody tr:last-child {
+    border-bottom: none;
+  }
+
+  .scores-table td {
+    padding: 1.2rem;
+  }
+
+  .rang {
+    font-weight: bold;
+    color: var(--colorFuchia);
+    width: 80px;
+    text-align: center;
+    font-size: 1.2rem;
+  }
+
+  .rang-medaille {
+    font-size: 2rem;
+    display: inline-block;
+    animation: bounce 2s infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+  }
+
+  .nom-joueur {
+    font-weight: 500;
+    color: #333;
+    font-size: 1.1rem;
+  }
+
+  .score-valeur {
+    font-weight: bold;
+    font-size: 1.3rem;
+    color: var(--colorFuchia);
+    text-align: right;
+  }
+
+  /* Message vide stylisé */
+  .message-vide {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: #666;
+    background: white;
+    border-radius: 1.5rem;
+    max-width: 600px;
+    box-shadow: 0 8px 20px rgba(230, 69, 111, 0.15);
+    animation: fadeInUp 1s ease-out 0.3s backwards;
+  }
+
+  .message-vide p {
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
+  }
+
+  .message-vide .emoji-vide {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  /* Bouton retour stylisé comme le menu */
+  .btn-retour {
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 0.8rem 2rem;
+    background: var(--colorFuchia);
+    color: white;
+    text-decoration: none;
+    border-radius: 2rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(230, 69, 111, 0.3);
+    z-index: 1;
+    position: relative;
+  }
+
+  .btn-retour:hover {
+    background: #ff6b9d;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(230, 69, 111, 0.4);
+  }
+
+  /* Animations */
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Podium pour top 3 */
+  .top-podium {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    animation: fadeIn 1s ease-out 0.5s backwards;
+  }
+
+  .podium-item {
+    background: white;
+    border-radius: 1rem;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    min-width: 150px;
+    box-shadow: 0 4px 12px rgba(230, 69, 111, 0.15);
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+  }
+
+  .podium-item:hover {
+    transform: translateY(-5px);
+    border-color: var(--colorFuchia);
+  }
+
+  .podium-item.first {
+    order: 2;
+    transform: scale(1.1);
+    border-color: gold;
+  }
+
+  .podium-item.second {
+    order: 1;
+  }
+
+  .podium-item.third {
+    order: 3;
+  }
+
+  .podium-medaille {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .podium-nom {
+    font-weight: bold;
+    color: var(--colorFuchia);
+    margin-bottom: 0.3rem;
+    font-size: 1.1rem;
+  }
+
+  .podium-score {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #333;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .scores-header h1 {
+      font-size: 2.5rem;
+    }
+
+    .top-podium {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .podium-item.first {
+      order: 1;
+    }
+
+    .scores-table th,
+    .scores-table td {
+      padding: 0.8rem 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .rang-medaille {
+      font-size: 1.5rem;
+    }
+  }
+</style>
+{% endblock %}
+
 {% block body %}
-  <section class="container" style="max-width: 720px; margin: 2rem auto;">
-    <h1>Tableau des scores</h1>
-    <p class="text-muted">Le classement arrivera ici très vite </p>
-    <a class="btn btn-link" href="{{ path('app_menu') }}">Retour au menu</a>
+  <section class="container-scores">
+    {# Bulles décoratives #}
+    <div class="deco-bubble"></div>
+    <div class="deco-bubble"></div>
+    <div class="deco-bubble"></div>
+
+    {# Titre principal #}
+    <div class="scores-header">
+      <h1>🏆 Tableau des scores</h1>
+      <p>Classement des meilleurs joueurs</p>
+    </div>
+
+    {% if profils is empty %}
+      <div class="message-vide">
+        <span class="emoji-vide">🎮</span>
+        <p><strong>Aucun score enregistré pour le moment.</strong></p>
+        <p>Soyez la première à jouer et à apparaître dans le classement !</p>
+      </div>
+    {% else %}
+      {# Podium des 3 premiers #}
+      {% if profils|length >= 3 %}
+        <div class="top-podium">
+          {# 2ème place #}
+          <div class="podium-item second">
+            <span class="podium-medaille">🥈</span>
+            <div class="podium-nom">
+              {% if profils[1].utilisateur %}
+                {{ profils[1].utilisateur.nom }}
+              {% else %}
+                Joueur anonyme
+              {% endif %}
+            </div>
+            <div class="podium-score">{{ profils[1].score }} pts</div>
+          </div>
+
+          {# 1ère place #}
+          <div class="podium-item first">
+            <span class="podium-medaille">🥇</span>
+            <div class="podium-nom">
+              {% if profils[0].utilisateur %}
+                {{ profils[0].utilisateur.nom }}
+              {% else %}
+                Joueur anonyme
+              {% endif %}
+            </div>
+            <div class="podium-score">{{ profils[0].score }} pts</div>
+          </div>
+
+          {# 3ème place #}
+          <div class="podium-item third">
+            <span class="podium-medaille">🥉</span>
+            <div class="podium-nom">
+              {% if profils[2].utilisateur %}
+                {{ profils[2].utilisateur.nom }}
+              {% else %}
+                Joueur anonyme
+              {% endif %}
+            </div>
+            <div class="podium-score">{{ profils[2].score }} pts</div>
+          </div>
+        </div>
+      {% endif %}
+
+      {# Tableau complet #}
+      <div class="scores-wrapper">
+        <div class="scores-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Rang</th>
+                <th>Joueur</th>
+                <th style="text-align: right;">Score</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for profil in profils %}
+                <tr>
+                  <td class="rang">
+                    {% if loop.index == 1 %}
+                      <span class="rang-medaille">🥇</span>
+                    {% elseif loop.index == 2 %}
+                      <span class="rang-medaille">🥈</span>
+                    {% elseif loop.index == 3 %}
+                      <span class="rang-medaille">🥉</span>
+                    {% else %}
+                      {{ loop.index }}
+                    {% endif %}
+                  </td>
+                  <td class="nom-joueur">
+                    {% if profil.utilisateur %}
+                      {{ profil.utilisateur.nom }}
+                    {% else %}
+                      Joueur anonyme
+                    {% endif %}
+                  </td>
+                  <td class="score-valeur">
+                    {{ profil.score }} pts
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    {% endif %}
+
+    <div style="text-align: center;">
+      <a class="btn-retour" href="{{ path('app_menu') }}">← Retour au menu</a>
+    </div>
   </section>
 {% endblock %}

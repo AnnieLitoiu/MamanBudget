@@ -1,0 +1,348 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Résumé de ta partie | MamanSolo{% endblock %}
+
+{% block stylesheets %}
+<style>
+  .container-summary {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Bulles décoratives */
+  .deco-bubble {
+    position: absolute;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(230, 69, 111, 0.1), rgba(255, 229, 224, 0.3));
+    pointer-events: none;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .deco-bubble:nth-child(1) {
+    width: 110px;
+    height: 110px;
+    top: 8%;
+    left: 10%;
+    animation-delay: 0s;
+  }
+
+  .deco-bubble:nth-child(2) {
+    width: 150px;
+    height: 150px;
+    top: 65%;
+    right: 8%;
+    animation-delay: 2s;
+  }
+
+  .deco-bubble:nth-child(3) {
+    width: 85px;
+    height: 85px;
+    bottom: 15%;
+    left: 18%;
+    animation-delay: 4s;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0) scale(1);
+    }
+    50% {
+      transform: translateY(-20px) scale(1.05);
+    }
+  }
+
+  /* Header */
+  .summary-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    animation: fadeInDown 0.8s ease-out;
+    z-index: 1;
+  }
+
+  .summary-header h1 {
+    font-size: 3rem;
+    color: var(--colorFuchia);
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 4px rgba(230, 69, 111, 0.2);
+    font-weight: bold;
+  }
+
+  .summary-header p {
+    font-size: 1.1rem;
+    color: #666;
+  }
+
+  /* Wrapper principal */
+  .summary-wrapper {
+    max-width: 900px;
+    width: 100%;
+    z-index: 1;
+    animation: fadeInUp 1s ease-out 0.3s backwards;
+  }
+
+  /* Carte des résultats finaux */
+  .results-card {
+    background: white;
+    border-radius: 1.5rem;
+    padding: 2.5rem 2rem;
+    box-shadow: 0 8px 20px rgba(230, 69, 111, 0.15);
+    border: 3px solid rgba(230, 69, 111, 0.1);
+    margin-bottom: 2rem;
+  }
+
+  .results-card h2 {
+    color: var(--colorFuchia);
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  /* Grille des résultats */
+  .results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .result-box {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    text-align: center;
+    border: 2px solid rgba(230, 69, 111, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .result-box:hover {
+    transform: translateY(-5px);
+    border-color: var(--colorFuchia);
+    box-shadow: 0 4px 12px rgba(230, 69, 111, 0.2);
+  }
+
+  .result-label {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+  }
+
+  .result-value {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--colorFuchia);
+  }
+
+  /* Section moyennes */
+  .averages-section {
+    background: white;
+    border-radius: 1.5rem;
+    padding: 2rem;
+    box-shadow: 0 8px 20px rgba(230, 69, 111, 0.15);
+    border: 3px solid rgba(230, 69, 111, 0.1);
+    margin-bottom: 2rem;
+  }
+
+  .averages-section h2 {
+    color: var(--colorFuchia);
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .averages-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .averages-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    margin-bottom: 0.8rem;
+    background: #f8f9fa;
+    border-radius: 0.8rem;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+  }
+
+  .averages-list li:hover {
+    border-color: var(--colorFuchia);
+    background: rgba(230, 69, 111, 0.05);
+  }
+
+  .avg-label {
+    font-weight: 600;
+    color: #555;
+  }
+
+  .avg-value {
+    font-weight: bold;
+    color: var(--colorFuchia);
+    font-size: 1.1rem;
+  }
+
+  /* Date info */
+  .date-info {
+    text-align: center;
+    font-size: 0.95rem;
+    color: #888;
+    margin-bottom: 1rem;
+  }
+
+  /* Bouton retour */
+  .btn-retour {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background: var(--colorFuchia);
+    color: white;
+    text-decoration: none;
+    border-radius: 2rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(230, 69, 111, 0.3);
+  }
+
+  .btn-retour:hover {
+    background: #ff6b9d;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(230, 69, 111, 0.4);
+  }
+
+  /* Animations */
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .summary-header h1 {
+      font-size: 2.2rem;
+    }
+
+    .results-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .result-value {
+      font-size: 2rem;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block body %}
+<section class="container-summary">
+  {# Bulles décoratives #}
+  <div class="deco-bubble"></div>
+  <div class="deco-bubble"></div>
+  <div class="deco-bubble"></div>
+
+  {# Header #}
+  <div class="summary-header">
+    <h1>Bravo ! Partie terminée</h1>
+    <p class="date-info">
+      Partie jouée le {{ partie.date ? partie.date|date('d/m/Y') : '—' }}
+    </p>
+  </div>
+
+  {# Wrapper #}
+  <div class="summary-wrapper">
+
+    {# Score principal #}
+    <div class="results-card" style="text-align: center; margin-bottom: 2rem;">
+      <h2>Ton Score Final</h2>
+      <div style="font-size: 4rem; font-weight: bold; color: var(--colorFuchia); margin: 2rem 0;">
+        {{ resume.score }} points
+      </div>
+      <p style="font-size: 1.2rem; color: #666;">
+        {% if resume.score >= 600 %}
+          Excellent ! Tu as su gérer ta situation avec brio 🌟
+        {% elseif resume.score >= 400 %}
+          Très bien ! Tu as maintenu un bon équilibre 💪
+        {% elseif resume.score >= 200 %}
+          Bien joué ! Continue comme ça ✨
+        {% else %}
+          C'était difficile, mais tu as tenu bon 💖
+        {% endif %}
+      </p>
+    </div>
+
+    {# Résultats détaillés #}
+    <div class="results-card">
+      <h2>Détails de la partie</h2>
+
+      <div class="results-grid">
+        <div class="result-box">
+          <div class="result-label">Budget final</div>
+          <div class="result-value">{{ resume.final.budget }} €</div>
+        </div>
+
+        <div class="result-box">
+          <div class="result-label">Bien-être total</div>
+          <div class="result-value">{{ resume.final.bien_etre }}</div>
+        </div>
+
+        <div class="result-box">
+          <div class="result-label">Bonheur des enfants</div>
+          <div class="result-value">{{ resume.final.bonheur }}</div>
+        </div>
+      </div>
+    </div>
+
+    {# Moyennes #}
+    <div class="averages-section">
+      <h2>Moyennes sur la période</h2>
+
+      <ul class="averages-list">
+        <li>
+          <span class="avg-label">Bien-être moyen</span>
+          <span class="avg-value">{{ resume.moyennes.bien_etre }}</span>
+        </li>
+        <li>
+          <span class="avg-label">Bonheur moyen</span>
+          <span class="avg-value">{{ resume.moyennes.bonheur }}</span>
+        </li>
+        <li>
+          <span class="avg-label">Budget moyen restant</span>
+          <span class="avg-value">{{ resume.moyennes.budget }} €</span>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+  {# Bouton retour #}
+  <div style="text-align: center;">
+    <a href="{{ path('app_menu') }}" class="btn-retour">Retour au menu principal</a>
+  </div>
+
+</section>
+{% endblock %}

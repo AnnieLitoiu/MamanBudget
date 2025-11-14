@@ -1,43 +1,397 @@
 {% extends 'base.html.twig' %}
 {% block title %}Mon profil{% endblock %}
 
+{% block stylesheets %}
+<style>
+  .container-profil {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Bulles décoratives en arrière-plan */
+  .deco-bubble {
+    position: absolute;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(230, 69, 111, 0.1), rgba(255, 229, 224, 0.3));
+    pointer-events: none;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .deco-bubble:nth-child(1) {
+    width: 120px;
+    height: 120px;
+    top: 8%;
+    left: 5%;
+    animation-delay: 0s;
+  }
+
+  .deco-bubble:nth-child(2) {
+    width: 160px;
+    height: 160px;
+    top: 65%;
+    right: 8%;
+    animation-delay: 2s;
+  }
+
+  .deco-bubble:nth-child(3) {
+    width: 100px;
+    height: 100px;
+    bottom: 15%;
+    left: 12%;
+    animation-delay: 4s;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0) scale(1);
+    }
+    50% {
+      transform: translateY(-20px) scale(1.05);
+    }
+  }
+
+  /* Titre principal avec animation */
+  .profil-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    animation: fadeInDown 0.8s ease-out;
+    z-index: 1;
+  }
+
+  .profil-header h1 {
+    font-size: 3.5rem;
+    color: var(--colorFuchia);
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 4px rgba(230, 69, 111, 0.2);
+    font-weight: bold;
+  }
+
+  .profil-header p {
+    font-size: 1.2rem;
+    color: #555;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* Conteneur principal du profil */
+  .profil-wrapper {
+    max-width: 1000px;
+    width: 100%;
+    z-index: 1;
+    animation: fadeInUp 1s ease-out 0.3s backwards;
+  }
+
+  /* Carte d'informations utilisateur */
+  .user-info-card {
+    background: white;
+    border-radius: 1.5rem;
+    padding: 2.5rem 2rem;
+    box-shadow: 0 8px 20px rgba(230, 69, 111, 0.15);
+    margin-bottom: 2rem;
+    border: 3px solid rgba(230, 69, 111, 0.1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .user-info-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--colorFuchia) 0%, #ff6b9d 100%);
+  }
+
+  .user-info-card h2 {
+    color: var(--colorFuchia);
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+  }
+
+  .user-info-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .user-info-item:last-child {
+    border-bottom: none;
+  }
+
+  .user-info-label {
+    font-weight: 600;
+    color: #666;
+  }
+
+  .user-info-value {
+    font-weight: 500;
+    color: #333;
+  }
+
+  /* Grille de statistiques */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .stat-card {
+    background: white;
+    border-radius: 1.5rem;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(230, 69, 111, 0.15);
+    transition: all 0.3s ease;
+    border: 3px solid transparent;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--colorFuchia), #ff6b9d);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 0;
+  }
+
+  .stat-card:hover::before {
+    opacity: 0.05;
+  }
+
+  .stat-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(230, 69, 111, 0.3);
+    border-color: var(--colorFuchia);
+  }
+
+  .stat-card-content {
+    position: relative;
+    z-index: 1;
+  }
+
+  .stat-value {
+    font-size: 3rem;
+    font-weight: bold;
+    color: var(--colorFuchia);
+    margin-bottom: 0.8rem;
+    display: block;
+  }
+
+  .stat-label {
+    font-size: 1.1rem;
+    color: #666;
+    font-weight: 600;
+  }
+
+  /* Bouton retour */
+  .btn-retour {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.8rem 2rem;
+    background: var(--colorFuchia);
+    color: white;
+    text-decoration: none;
+    border-radius: 2rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(230, 69, 111, 0.3);
+  }
+
+  .btn-retour:hover {
+    background: #ff6b9d;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(230, 69, 111, 0.4);
+  }
+
+  /* Animations */
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Badge utilisateur */
+  .user-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--colorFuchia), #ff6b9d);
+    color: white;
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 12px rgba(230, 69, 111, 0.3);
+  }
+
+  .user-name-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .user-name-text {
+    flex: 1;
+  }
+
+  .user-name-text h3 {
+    font-size: 1.8rem;
+    color: var(--colorFuchia);
+    margin: 0;
+    font-weight: bold;
+  }
+
+  .user-name-text p {
+    margin: 0.3rem 0 0 0;
+    color: #666;
+    font-size: 1rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .profil-header h1 {
+      font-size: 2.5rem;
+    }
+
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+    }
+
+    .user-badge {
+      width: 60px;
+      height: 60px;
+      font-size: 1.8rem;
+    }
+  }
+</style>
+{% endblock %}
+
 {% block body %}
-  <section class="container" style="max-width: 720px; margin: 2rem auto;">
-    <h1>Mon profil</h1>
-    <p class="text-muted">
-      Aperçu de tes statistiques de jeu. Plus tu joues, plus ces indicateurs se remplissent.
-    </p>
+  <section class="container-profil">
+    {# Bulles décoratives #}
+    <div class="deco-bubble"></div>
+    <div class="deco-bubble"></div>
+    <div class="deco-bubble"></div>
 
-    <div class="row g-3 my-3">
-      <div class="col-6 col-md-3">
-        <div class="card p-3 text-center">
-          <div class="h4 mb-0">{{ stats.games_played }}</div>
-          <div class="text-muted">Parties jouées</div>
-        </div>
-      </div>
-
-      <div class="col-6 col-md-3">
-        <div class="card p-3 text-center">
-          <div class="h4 mb-0">{{ stats.best_bien_etre }}</div>
-          <div class="text-muted">Mon bien-être</div>
-        </div>
-      </div>
-
-      <div class="col-6 col-md-3">
-        <div class="card p-3 text-center">
-          <div class="h4 mb-0">{{ stats.best_bonheur }}</div>
-          <div class="text-muted">Mon bonheur</div>
-        </div>
-      </div>
-
-      <div class="col-6 col-md-3">
-        <div class="card p-3 text-center">
-          <div class="h4 mb-0">{{ stats.best_budget }} €</div>
-          <div class="text-muted">Meilleur budget</div>
-        </div>
-      </div>
+    {# Titre principal #}
+    <div class="profil-header">
+      <h1>Mon profil</h1>
+      <p>Aperçu de tes informations et de tes statistiques de jeu. Plus tu joues, meilleurs sont tes scores !</p>
     </div>
 
-    <a href="{{ path('app_menu') }}" class="btn btn-link mt-3">Retour au menu</a>
+    {# Conteneur principal #}
+    <div class="profil-wrapper">
+
+      {# Carte informations utilisateur #}
+      <div class="user-info-card">
+        <div class="user-name-header">
+          <div class="user-badge">{{ user.nom|slice(0, 1)|upper }}</div>
+          <div class="user-name-text">
+            <h3>{{ user.nom }}</h3>
+            <p>{{ user.email }}</p>
+          </div>
+        </div>
+
+        <div class="user-info-item">
+          <span class="user-info-label">Date d'inscription</span>
+          <span class="user-info-value">
+            {% if user.createdAt is defined and user.createdAt %}
+              {{ user.createdAt|date('d/m/Y') }}
+            {% else %}
+              Non disponible
+            {% endif %}
+          </span>
+        </div>
+
+        <div class="user-info-item">
+          <span class="user-info-label">Nombre de parties</span>
+          <span class="user-info-value">{{ stats.games_played }}</span>
+        </div>
+
+        <div class="user-info-item">
+          <span class="user-info-label">Meilleur score</span>
+          <span class="user-info-value">{{ stats.best_score }} pts</span>
+        </div>
+      </div>
+
+      {# Grille de statistiques #}
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-card-content">
+            <span class="stat-value">{{ stats.games_played }}</span>
+            <span class="stat-label">Parties jouées</span>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-card-content">
+            <span class="stat-value">{{ stats.best_bien_etre }}</span>
+            <span class="stat-label">Meilleur bien-être</span>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-card-content">
+            <span class="stat-value">{{ stats.best_bonheur }}</span>
+            <span class="stat-label">Meilleur bonheur</span>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-card-content">
+            <span class="stat-value">{{ stats.best_budget }} €</span>
+            <span class="stat-label">Meilleur budget</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    {# Bouton retour #}
+    <div style="text-align: center;">
+      <a class="btn-retour" href="{{ path('app_menu') }}">← Retour au menu</a>
+    </div>
+
   </section>
 {% endblock %}

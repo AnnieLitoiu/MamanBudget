@@ -3,19 +3,300 @@
 
 {% block title %}Menu | MamanSolo{% endblock %}
 
+{% block stylesheets %}
+<style>
+  .menu-principal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 0rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Titre principal avec animation */
+  .menu-titre {
+    text-align: center;
+    margin-bottom: 1rem;
+    animation: fadeInDown 0.8s ease-out;
+  }
+
+  .menu-titre h1 {
+    font-size: 3.5rem;
+    color: var(--colorFuchia);
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 4px rgba(230, 69, 111, 0.2);
+    font-weight: bold;
+  }
+
+  .menu-titre .emoji-decoration {
+    font-size: 3rem;
+    display: inline-block;
+    animation: bounce 2s infinite;
+  }
+
+  .menu-subtitle {
+    text-align: center;
+    font-size: 1.3rem;
+    color: #555;
+    margin-bottom: 3rem;
+    max-width: 600px;
+    animation: fadeIn 1s ease-out 0.3s backwards;
+  }
+
+  /* Grille de cartes pour les actions */
+  .menu-actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
+    animation: fadeInUp 1s ease-out 0.5s backwards;
+  }
+
+  .menu-card {
+    background: white;
+    border-radius: 1.5rem;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 8px 20px rgba(230, 69, 111, 0.15);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    border: 3px solid transparent;
+  }
+
+  .menu-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--colorFuchia), #ff6b9d);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 0;
+  }
+
+  .menu-card:hover::before {
+    opacity: 0.05;
+  }
+
+  .menu-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 30px rgba(230, 69, 111, 0.3);
+    border-color: var(--colorFuchia);
+  }
+
+  .menu-card-content {
+    position: relative;
+    z-index: 1;
+  }
+
+  .menu-card-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .menu-card:hover .menu-card-icon {
+    transform: scale(1.1) rotate(5deg);
+  }
+
+  .menu-card-titre {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--colorFuchia);
+    margin-bottom: 0.8rem;
+  }
+
+  .menu-card-description {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.5;
+  }
+
+  /* Badge pour le profil */
+  .menu-card.profil-card .badge-user {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: var(--colorFuchia);
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+  }
+
+  /* Animations */
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  /* Bouton déconnexion discret */
+  .menu-logout {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    background: white;
+    color: var(--colorFuchia);
+    border: 2px solid var(--colorFuchia);
+    padding: 0.6rem 1.5rem;
+    border-radius: 2rem;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    z-index: 10;
+    margin-right: 50px;
+  }
+
+  .menu-logout:hover {
+    background: var(--colorFuchia);
+    color: white;
+    transform: scale(1.05);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .menu-titre h1 {
+      font-size: 2.5rem;
+    }
+
+    .menu-actions {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .menu-logout {
+      top: 1rem;
+      right: 1rem;
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+    }
+  }
+
+  /* Bulles décoratives en arrière-plan */
+  .deco-bubble {
+    position: absolute;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(230, 69, 111, 0.1), rgba(255, 229, 224, 0.3));
+    pointer-events: none;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .deco-bubble:nth-child(1) {
+    width: 100px;
+    height: 100px;
+    top: 10%;
+    left: 5%;
+    animation-delay: 0s;
+  }
+
+  .deco-bubble:nth-child(2) {
+    width: 150px;
+    height: 150px;
+    top: 60%;
+    right: 10%;
+    animation-delay: 2s;
+  }
+
+  .deco-bubble:nth-child(3) {
+    width: 80px;
+    height: 80px;
+    bottom: 15%;
+    left: 15%;
+    animation-delay: 4s;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0) scale(1);
+    }
+    50% {
+      transform: translateY(-20px) scale(1.05);
+    }
+  }
+</style>
+{% endblock %}
+
 {% block body %}
 
 <section class="container menu-principal">
+  <div class="deco-bubble"></div>
+  <div class="deco-bubble"></div>
+  <div class="deco-bubble"></div>
 
+  {% if app.user %}
+    <a href="{{ path('app_logout') }}" class="menu-logout">
+      ↪ Déconnexion
+    </a>
+  {% endif %}
 
+<div class="container">
+    <h1>MamanBudget</h1>
 
-  <p class="menu-subtitle">Démarre une partie, consulte le classement ou ton profil.</p>
+    <!-- Image de fond -->
+    <img src="./images/images-mamanSolo/living-room.webp" alt="Salon" class="background">
+    <!-- Femme (personnage) -->
+    <img src="./images/images-mamanSolo/avatar-maman.png" alt="Femme expliquant" class="character">
 
- <div class="menu-actions">
-  <a class="btn btn-primary" href="{{ path('game_setup_family') }}">Démarrer le jeu</a>
-  <a class="btn btn-secondary" href="{{ path('scores_index') }}">Tableau des scores</a>
-  <a class="btn btn-dark" href="{{ path('profil_dashboard') }}">Mon profil</a>
+    <div class="wrapper-center">
+        <div class="card-demarrer">
+            <h3>Démarre une partie, <br><br>consultez le classement ou votre profil</h3>
+
+            <a href="{{ path('game_setup_family') }}" class="btn-connecter">Démarrer le jeu</a>
+            <a href="{{ path('scores_index') }}" class="btn-connecter">Tableau des scores</a>
+            <a href="{{ path('profil_dashboard') }}" class="btn-connecter">Mon profil</a>
+        </div>
+    </div>
+
 </div>
 
 </section>
+
 {% endblock %}

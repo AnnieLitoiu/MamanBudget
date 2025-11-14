@@ -1,12 +1,273 @@
 {% extends 'base.html.twig' %}
-{% block title %}Register | MamanSolo{% endblock %}
+{% block title %}Inscription | MamanSolo{% endblock %}
+
+{% block stylesheets %}
+<style>
+  .container-register {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Bulles décoratives en arrière-plan */
+  .deco-bubble {
+    position: absolute;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(230, 69, 111, 0.1), rgba(255, 229, 224, 0.3));
+    pointer-events: none;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .deco-bubble:nth-child(1) {
+    width: 120px;
+    height: 120px;
+    top: 5%;
+    left: 8%;
+    animation-delay: 0s;
+  }
+
+  .deco-bubble:nth-child(2) {
+    width: 180px;
+    height: 180px;
+    top: 70%;
+    right: 5%;
+    animation-delay: 2s;
+  }
+
+  .deco-bubble:nth-child(3) {
+    width: 90px;
+    height: 90px;
+    bottom: 10%;
+    left: 20%;
+    animation-delay: 4s;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0) scale(1);
+    }
+    50% {
+      transform: translateY(-20px) scale(1.05);
+    }
+  }
+
+  /* Header avec animation */
+  .register-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    animation: fadeInDown 0.8s ease-out;
+    z-index: 1;
+  }
+
+  .register-header h1 {
+    font-size: 3rem;
+    color: var(--colorFuchia);
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 4px rgba(230, 69, 111, 0.2);
+    font-weight: bold;
+  }
+
+  .register-header p {
+    font-size: 1.2rem;
+    color: #555;
+  }
+
+  /* Carte du formulaire */
+  .register-card {
+    max-width: 500px;
+    width: 100%;
+    background: white;
+    border-radius: 1.5rem;
+    box-shadow: 0 8px 20px rgba(230, 69, 111, 0.15);
+    padding: 2.5rem;
+    animation: fadeInUp 1s ease-out 0.3s backwards;
+    border: 3px solid rgba(230, 69, 111, 0.1);
+    z-index: 1;
+  }
+
+  /* Style des champs du formulaire */
+  .register-card form > div {
+    margin-bottom: 1.5rem;
+  }
+
+  .register-card label {
+    display: block;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+  }
+
+  .register-card input[type="text"],
+  .register-card input[type="email"],
+  .register-card input[type="password"] {
+    width: 100%;
+    padding: 0.9rem 1.2rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 0.8rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+  }
+
+  .register-card input:focus {
+    outline: none;
+    border-color: var(--colorFuchia);
+    box-shadow: 0 0 0 3px rgba(230, 69, 111, 0.1);
+  }
+
+  /* Messages d'erreur */
+  .error-message {
+    background: #ffe5e5;
+    color: #d32f2f;
+    padding: 1rem;
+    border-radius: 0.8rem;
+    margin-bottom: 1.5rem;
+    border: 2px solid #d32f2f;
+    font-size: 0.95rem;
+  }
+
+  .register-card .invalid-feedback,
+  .register-card .form-error-message {
+    color: #d32f2f;
+    font-size: 0.9rem;
+    margin-top: 0.3rem;
+    display: block;
+  }
+
+  /* Bouton de soumission */
+  .btn-submit {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, var(--colorFuchia) 0%, #ff6b9d 100%);
+    color: white;
+    border: none;
+    border-radius: 2rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-submit::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+  }
+
+  .btn-submit:hover::before {
+    width: 300px;
+    height: 300px;
+  }
+
+  .btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(230, 69, 111, 0.3);
+  }
+
+  /* Lien vers connexion */
+  .login-link {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: #666;
+    z-index: 1;
+  }
+
+  .login-link a {
+    color: var(--colorFuchia);
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .login-link a:hover {
+    color: #ff6b9d;
+    text-decoration: underline;
+  }
+
+  /* Animations */
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .register-header h1 {
+      font-size: 2.2rem;
+    }
+
+    .register-card {
+      padding: 2rem;
+    }
+  }
+</style>
+{% endblock %}
 
 {% block body %}
-  <h1>Créer mon compte 💕</h1>
+<div class="container-register">
+  {# Bulles décoratives #}
+  <div class="deco-bubble"></div>
+  <div class="deco-bubble"></div>
+  <div class="deco-bubble"></div>
 
-  {{ form_start(form) }}
-    {{ form_errors(form) }}
-    {{ form_widget(form) }}
-    <button type="submit">🎮 Commencer le jeu</button>
-  {{ form_end(form) }}
+  {# Header #}
+  <div class="register-header">
+    <h1>Inscription</h1>
+    <p>Rejoins la communauté MamanSolo</p>
+  </div>
+
+  {# Carte du formulaire #}
+  <div class="register-card">
+    {{ form_start(form) }}
+      {# Messages flash d'erreur #}
+      {% for message in app.flashes('error') %}
+        <div class="error-message">{{ message }}</div>
+      {% endfor %}
+
+      {{ form_errors(form) }}
+
+      {{ form_widget(form) }}
+
+      <button type="submit" class="btn-submit">S'inscrire</button>
+    {{ form_end(form) }}
+  </div>
+
+  {# Lien vers connexion #}
+  <div class="login-link">
+    Déjà un compte ? <a href="{{ path('app_login') }}">Se connecter</a>
+  </div>
+</div>
 {% endblock %}

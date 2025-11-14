@@ -1,13 +1,20 @@
 <!DOCTYPE html>
 <html lang="fr">
   <head>
-  <meta charset="UTF-8">
-  <title>{% block title %}MamanSolo{% endblock %}</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  {% block stylesheets %}{% endblock %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}MamanBudget{% endblock %}</title>
+
+    {# CSS global de Fouzia #}
+    <link rel="stylesheet" href="{{ asset('css/globale.css') }}">
+
+    {% block stylesheets %}{% endblock %}
+
+    {# JS des bulles #}
+    <script defer src="{{ asset('js/main.js') }}"></script>
+    {% block javascripts %}{% endblock %}
   </head>
   <body>
     {% block body %}{% endblock %}
-    {% block javascripts %}{% endblock %}
   </body>
 </html>

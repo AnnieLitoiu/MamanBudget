@@ -104,7 +104,7 @@ class GameEngine
 
     /**
      * Calcule un résumé final (moyennes + valeurs finales) à afficher à la fin du jeu.
-     * Ton front pourra décider du message (“Très bon équilibre”, …) en fonction de ces chiffres.
+     * Ton front pourra décider du message ("Très bon équilibre", …) en fonction de ces chiffres.
      */
     public function resumeFinal(Partie $partie): array
     {
@@ -126,6 +126,13 @@ class GameEngine
         $moyBonh = (int) round($sumBonh / $n);
         $moyBudg = (float) number_format($sumBudg / $n, 2, '.', '');
 
+        $budgetFinal = (float) $partie->getBudgetCourant();
+        $bienEtreTotal = array_sum(array_map(fn($w)=>$w->getBienEtre(), $semaines));
+        $bonheurFinal = $partie->getBonheurCourant();
+
+        // Calcul du score total
+        $score = $this->calculerScore($budgetFinal, $bienEtreTotal, $bonheurFinal, $partie->getBudgetInitial());
+
         return [
             'moyennes' => [
                 'bien_etre' => $moyBien,
@@ -133,10 +140,40 @@ class GameEngine
                 'budget'    => $moyBudg,
             ],
             'final' => [
-                'budget'    => (float) $partie->getBudgetCourant(),
-                'bien_etre' => array_sum(array_map(fn($w)=>$w->getBienEtre(), $semaines)),
-                'bonheur'   => $partie->getBonheurCourant(),
+                'budget'    => $budgetFinal,
+                'bien_etre' => $bienEtreTotal,
+                'bonheur'   => $bonheurFinal,
             ],
+            'score' => $score,
         ];
+    }
+
+    /**
+     * Calcule le score final basé sur le budget restant, bien-être et bonheur
+     * Formule : (Budget Restant / Budget Initial * 30) + (Bien-être * 5) + (Bonheur * 7)
+     */
+    private function calculerScore(float $budgetFinal, int $bienEtreTotal, int $bonheurFinal, string $budgetInitial): int
+    {
+        $budgetInit = (float) $budgetInitial;
+
+        // Éviter division par zéro
+        if ($budgetInit <= 0) {
+            $budgetInit = 1;
+        }
+
+        // Points du budget (max 30 points si budget conservé à 100%)
+        $pointsBudget = ($budgetFinal / $budgetInit) * 30;
+
+        // Points du bien-être (coefficient 5)
+        $pointsBienEtre = $bienEtreTotal * 5;
+
+        // Points du bonheur (coefficient 7)
+        $pointsBonheur = $bonheurFinal * 7;
+
+        // Score total
+        $scoreTotal = (int) round($pointsBudget + $pointsBienEtre + $pointsBonheur);
+
+        // S'assurer que le score est positif
+        return max(0, $scoreTotal);
     }
 }

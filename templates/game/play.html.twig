@@ -1,36 +1,360 @@
 {% extends 'base.html.twig' %}
-{% block title %}BudgetMaman — Jeu{% endblock %}
+
+{% block title %}Semaine {{ partie.semaineCourante }} | MamanSolo{% endblock %}
+
+{% block stylesheets %}
+<style>
+  .container-game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Bulles décoratives */
+  .deco-bubble {
+    position: absolute;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(230, 69, 111, 0.1), rgba(255, 229, 224, 0.3));
+    pointer-events: none;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .deco-bubble:nth-child(1) {
+    width: 90px;
+    height: 90px;
+    top: 5%;
+    left: 5%;
+    animation-delay: 0s;
+  }
+
+  .deco-bubble:nth-child(2) {
+    width: 120px;
+    height: 120px;
+    top: 70%;
+    right: 5%;
+    animation-delay: 2s;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0) scale(1);
+    }
+    50% {
+      transform: translateY(-20px) scale(1.05);
+    }
+  }
+
+  /* Header avec progression */
+  .game-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    animation: fadeInDown 0.8s ease-out;
+    z-index: 1;
+    width: 100%;
+    max-width: 900px;
+  }
+
+  .game-header h1 {
+    font-size: 2.5rem;
+    color: var(--colorFuchia);
+    margin-bottom: 1rem;
+    font-weight: bold;
+  }
+
+  /* Barre de progression */
+  .progress-bar-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto 1.5rem;
+    background: white;
+    padding: 1rem 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(230, 69, 111, 0.15);
+  }
+
+  .progress-label {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
+
+  .progress {
+    height: 12px;
+    background: #f0f0f0;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--colorFuchia), #ff6b9d);
+    border-radius: 10px;
+    transition: width 0.5s ease;
+  }
+
+  /* Stats du joueur */
+  .game-stats {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    z-index: 1;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 900px;
+    width: 100%;
+  }
+
+  .stat-box {
+    background: white;
+    padding: 1rem 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(230, 69, 111, 0.15);
+    min-width: 150px;
+    text-align: center;
+    border: 2px solid rgba(230, 69, 111, 0.1);
+  }
+
+  .stat-label {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.3rem;
+  }
+
+  .stat-value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--colorFuchia);
+  }
+
+  /* Carte événement */
+  .event-card {
+    max-width: 900px;
+    width: 100%;
+    background: white;
+    border-radius: 1.5rem;
+    padding: 2.5rem 2rem;
+    box-shadow: 0 8px 20px rgba(230, 69, 111, 0.15);
+    border: 3px solid rgba(230, 69, 111, 0.1);
+    animation: fadeInUp 1s ease-out 0.3s backwards;
+    z-index: 1;
+    margin-bottom: 2rem;
+  }
+
+  .event-card h2 {
+    color: var(--colorFuchia);
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+  }
+
+  .event-text {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #333;
+    margin-bottom: 2rem;
+  }
+
+  .options-title {
+    font-size: 1.3rem;
+    color: var(--colorFuchia);
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+
+  /* Boutons d'options */
+  .option-button {
+    width: 100%;
+    padding: 1.2rem 1.5rem;
+    background: #f8f9fa;
+    border: 2px solid transparent;
+    border-radius: 1rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #333;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 1rem;
+  }
+
+  .option-button:hover {
+    background: rgba(230, 69, 111, 0.05);
+    border-color: var(--colorFuchia);
+    transform: translateX(5px);
+  }
+
+  /* Alertes */
+  .alert {
+    padding: 1rem 1.5rem;
+    border-radius: 1rem;
+    margin-bottom: 1.5rem;
+    max-width: 900px;
+    width: 100%;
+  }
+
+  .alert-danger {
+    background: #ffe5e5;
+    color: #d32f2f;
+    border: 2px solid #d32f2f;
+  }
+
+  .alert-info {
+    background: #e3f2fd;
+    color: #1976d2;
+    border: 2px solid #1976d2;
+  }
+
+  .alert-warning {
+    background: #fff3cd;
+    color: #856404;
+    border: 2px solid #ffc107;
+  }
+
+  /* Bouton retour */
+  .btn-retour {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.8rem 2rem;
+    background: white;
+    color: var(--colorFuchia);
+    text-decoration: none;
+    border-radius: 2rem;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    border: 2px solid var(--colorFuchia);
+    z-index: 1;
+  }
+
+  .btn-retour:hover {
+    background: var(--colorFuchia);
+    color: white;
+    transform: translateY(-2px);
+  }
+
+  /* Animations */
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .game-header h1 {
+      font-size: 2rem;
+    }
+
+    .game-stats {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .stat-box {
+      min-width: 200px;
+    }
+  }
+</style>
+{% endblock %}
 
 {% block body %}
-  <section class="container" style="max-width: 960px; margin: 2rem auto;">
-    <h1>BudgetMaman — Partie en cours</h1>
+<section class="container-game">
+  {# Bulles décoratives #}
+  <div class="deco-bubble"></div>
+  <div class="deco-bubble"></div>
 
-    <p class="text-muted">
-      Cette page est le conteneur du jeu. Le design et les interactions seront gérés
-      par le HTML/CSS/JS de Fouzia, en utilisant l’API de Karima.
-    </p>
+  {# Header #}
+  <div class="game-header">
+    <h1>Semaine {{ partie.semaineCourante }} / {{ partie.nbSemaines }}</h1>
 
-    {# On expose quelques infos utiles au JS de Fouzia #}
-    <div
-      id="game-root"
-      data-game-id="{{ partie.id }}"
-      data-composition="{{ composition }}"
-      data-logement="{{ logement }}"
-      data-situation-pro="{{ situationPro }}"
-    >
-      <!-- Fouzia intégrera ici son HTML/CSS (par exemple en JS) -->
+    {# Barre de progression #}
+    <div class="progress-bar-container">
+      <div class="progress-label">Progression de la partie</div>
+      <div class="progress">
+        <div class="progress-fill" style="width: {{ (partie.semaineCourante / partie.nbSemaines * 100)|round }}%"></div>
+      </div>
     </div>
+  </div>
 
-    <script>
-      // Variables globales JS que Fouzia peut utiliser
-      window.GAME_ID = {{ partie.id }};
-      window.GAME_USER_ID = {{ partie.utilisateur.id }};
-      window.GAME_INITIAL_BUDGET = "{{ partie.budgetCourant }}";
-      window.GAME_INITIAL_BONHEUR = {{ partie.bonheurCourant }};
-      window.GAME_NB_SEMAINES = {{ partie.nbSemaines ?? 4 }};
-    </script>
+  {# Statistiques #}
+  <div class="game-stats">
+    <div class="stat-box">
+      <div class="stat-label">Budget</div>
+      <div class="stat-value">{{ partie.budgetCourant }} €</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">Bonheur</div>
+      <div class="stat-value">{{ partie.bonheurCourant }}</div>
+    </div>
+  </div>
 
-    {# Ici, Fouzia pourra inclure son propre JS externe qui appellera l'API de Karima #}
-    {# <script src="/js/game-frontend.js"></script> #}
-  </section>
+  {# Messages flash #}
+  {% for message in app.flashes('error') %}
+    <div class="alert alert-danger">{{ message }}</div>
+  {% endfor %}
+
+  {# Contenu principal #}
+  {% if partie.etat == 'TERMINE' %}
+    <div class="alert alert-info">
+      <strong>Partie terminée !</strong><br>
+      <a href="{{ path('game_summary', { id: partie.id }) }}" style="color: #1976d2; text-decoration: underline;">Voir le résumé final →</a>
+    </div>
+  {% else %}
+    {% if evenement %}
+      <div class="event-card">
+        <h2>Événement de la semaine</h2>
+        <div class="event-text">{{ evenement.texte }}</div>
+
+        {% if evenement.options is not empty %}
+          <div class="options-title">Que fais-tu ?</div>
+
+          <form method="post" action="{{ path('game_play', { id: partie.id }) }}">
+            {% for option in evenement.options %}
+              <button
+                type="submit"
+                name="optionId"
+                value="{{ option.id }}"
+                class="option-button"
+              >
+                {{ option.libelle }}
+              </button>
+            {% endfor %}
+          </form>
+        {% else %}
+          <p class="text-muted">Aucune option disponible pour cet événement.</p>
+        {% endif %}
+      </div>
+    {% else %}
+      <div class="alert alert-warning">
+        Aucun événement disponible pour cette semaine.
+      </div>
+    {% endif %}
+  {% endif %}
+
+  {# Bouton retour #}
+  <div style="text-align: center;">
+    <a href="{{ path('app_menu') }}" class="btn-retour">← Retour au menu</a>
+  </div>
+</section>
 {% endblock %}

@@ -1,11 +1,12 @@
+<?php
 
 namespace App\Service;
 
 class GameDesignStats
 {
-    public function __construct(
-        private EventsJsonLoader $loader
-    ) {}
+    public function __construct(private EventsJsonLoader $loader)
+    {
+    }
 
     public function calculerScoresMoyens(): array
     {
@@ -25,7 +26,7 @@ class GameDesignStats
                         if (!isset($choice['impact'])) continue;
 
                         foreach ($choice['impact'] as $key => $value) {
-                            $impacts[$key][] = (float) $value;
+                            $impacts[$key][] = (float)$value;
                         }
                     }
                 }

@@ -3,6 +3,10 @@
     --colorFuchia: #e6456f;
 }
 
+html, body {
+    overflow-x: hidden;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -35,8 +39,8 @@ h1 {
 .character {
     position: absolute;
     bottom: 20%;
-    left: 46%;
-    width: 300px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .bubble {
@@ -212,7 +216,7 @@ form {
         display: flex;
         flex-wrap: wrap;
         gap: 1rem;
-      
+
     }
     img{
         width: 7rem;
@@ -241,4 +245,30 @@ footer {
             font-size: 1.2rem;
         }
     }
+}
+
+div .card-demarrer{
+    background-color: white;
+    border-radius: 1rem;
+    padding: 4rem 5rem;
+    box-shadow: var(--bg) 0px 54px 55px, var(--bg) 0px -12px 30px, var(--bg) 0px 4px 6px, #f8cdd9 0px 12px 13px, var(--bg) 0px -3px 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    position: absolute;
+    top: 50%;
+    right: 25%;
+    transform: translateY(-50%);
+}
+
+div .card-demarrer a {
+    text-decoration: none;
+    text-align: center;
+}
+
+h3 {
+    color: var(--colorFuchia);
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
 }

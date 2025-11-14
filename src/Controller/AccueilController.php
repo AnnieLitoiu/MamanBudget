@@ -38,7 +38,17 @@ class AccueilController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
+            // Vérifier si l'email existe déjà
+            $existingUser = $em->getRepository(Utilisateur::class)
+                ->findOneBy(['email' => $utilisateur->getEmail()]);
+
+            if ($existingUser) {
+                $this->addFlash('error', 'Cet email est déjà utilisé. Veuillez en choisir un autre.');
+                return $this->render('security/register.html.twig', [
+                    'form' => $form,
+                ]);
+            }
+
             $hashed = $hasher->hashPassword($utilisateur, $utilisateur->getMotDePasse());
             $utilisateur->setMotDePasse($hashed);
 
