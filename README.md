@@ -1,24 +1,91 @@
-MamanSolo – Documentation du projet
-Présentation
+# MamanBudget - Gestion de budget pour familles monoparentales
 
-MamanSolo est une mini-application web réalisée en Symfony.
-Le projet met en scène une maman solo qui doit gérer un foyer sur un mois virtuel.
-L’objectif pédagogique est de sensibiliser aux difficultés financières et émotionnelles des familles monoparentales, tout en proposant une expérience ludique et interactive.
+## À propos
 
-L’utilisateur incarne une maman et doit répartir son budget, gérer des imprévus, maintenir son bien-être et celui de ses enfants, et trouver un équilibre jusqu’à la fin du mois.
+MamanBudget est une application web éducative développée avec Symfony qui simule les défis de la gestion d'un foyer monoparental. Ce serious game a pour objectif de sensibiliser aux réalités financières et émotionnelles des familles monoparentales à travers une expérience interactive et engageante.
 
-Ce projet est réalisé en collaboration par Annie, Orsula , Faouzia, Gaelle et Karima.
+## Fonctionnalités
 
+- Gestion de budget mensuel réaliste
+- Prise de décisions impactant la vie de famille
+- Suivi de trois indicateurs clés : Budget, Bien-être, Bonheur des enfants
+- Expérience de jeu immersive avec scénarios réalistes
+- Interface responsive adaptée à tous les appareils
 
+## Technologies utilisées
 
-Fonctionnement
+- PHP 8.2+
+- Symfony 7.3
+- Doctrine ORM
+- Twig
+- HTML5 / CSS3 / JavaScript
+- Composer
+- MySQL/MariaDB
+
+## Prérequis
+
+- PHP 8.2 ou supérieur
+- Composer
+- Node.js et NPM
+- MySQL/MariaDB
+- Symfony CLI (recommandé)
+
+## Installation
+
+1. Cloner le dépôt :
+   ```bash
+   git clone https://github.com/AnnieLitoiu/MamanBudget.git
+   cd MamanBudget
+   ```
+
+2. Installer les dépendances :
+   ```bash
+   composer install
+   npm install
+   ```
+
+3. Configurer la base de données :
+   ```bash
+   # Créer un fichier .env.local et configurer les accès à la base de données
+   cp .env .env.local
+   # Mettre à jour les variables DATABASE_URL dans .env.local
+   ```
+
+4. Créer la base de données et charger les données initiales :
+   ```bash
+   php bin/console doctrine:database:create
+   php bin/console doctrine:migrations:migrate
+   php bin/console doctrine:fixtures:load
+   ```
+
+5. Lancer le serveur de développement :
+   ```bash
+   symfony server:start
+   ```
+
+6. Accéder à l'application :
+   ```
+   http://localhost:8000
+   ```
+
+## Équipe
+
+- Annie
+- Orsula
+- Faouzia
+- Gaelle
+- Karima
+
+## Licence
+
+Ce projet est sous licence MIT. Symfony (Utilisateur, Situation, Avatar).
+
+## Fonctionnement
 
 1. Accueil et introduction au jeu
 
 L’utilisateur accède d’abord à une page d’accueil qui présente brièvement le concept du jeu et le but de l’expérience.
 Cette introduction explique que l’utilisateur devra prendre des décisions chaque semaine et que ces choix auront un impact sur trois indicateurs :Budget, bien-être et bonheur des enfants.
-
-
 
 2. Création du profil utilisateur
 
@@ -31,9 +98,6 @@ Situation familiale : type de foyer, nombre d’enfants, revenu mensuel
 Apparence de l’avatar (gestion via un formulaire dédié)
 
 Chaque formulaire enregistre les données dans la base grâce aux entités prévues dans Symfony (Utilisateur, Situation, Avatar).
-
-
-
 
 3. Connexion
 
@@ -129,6 +193,6 @@ Chaque membre travaille sur sa propre branche puis effectue un merge vers la bra
 
 Conclusion
 
-MamanSolo propose une expérience à la fois simple d’accès et significative.
+MamanBudget propose une expérience à la fois simple d’accès et significative.
 Le projet combine un design interactif en JavaScript, une structure solide en Symfony et un ensemble d’événements narratifs construits autour de la réalité des familles monoparentales.
 Le travail collaboratif a permis d’intégrer plusieurs compétences complémentaires pour construire un jeu éducatif cohérent.
