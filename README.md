@@ -74,6 +74,7 @@ MamanBudget est une application web éducative développée avec Symfony qui sim
 - Faouzia
 - Gaelle
 - Karima
+- Yuliia
 
 ## Licence
 
